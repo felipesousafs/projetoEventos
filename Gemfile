@@ -52,3 +52,31 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+
+gem 'nested_scaffold'
+
+# A gem to automate using jQuery with Rails
+gem 'jquery-rails'
+# Official Sass port of Bootstrap 2 and 3. http://getbootstrap.com/css/#sass
+gem 'bootstrap-sass', '~> 3.3.7'
+# the font-awesome font bundled as an asset for the rails asset pipeline http://fortawesome.github.com/Font-Awesome/
+gem 'font-awesome-rails'
+# Forms made easy for Rails! It's tied to a simple DSL, with no opinion on markup. http://blog.plataformatec.com.br/tag/…
+gem 'simple_form'
+# Flexible authentication solution for Rails with Warden. http://blog.plataformatec.com.br/tag/devise/
+gem 'devise'
+# The authorization Gem for Ruby on Rails.
+gem 'cancancan', '~> 2.0'
+# Role management library with resource scoping http://rolifycommunity.github.com/rolify/
+gem 'rolify'
+# Dynamic nested forms using jQuery made easy; works with formtastic, simple_form or default forms http://github.com/nathanvda/cocoon
+gem 'cocoon'
+# Integration of RubyMoney - Money with Rails
+gem 'money-rails', '~>1'
+# Integrate Select2 javascript library with Rails asset pipeline https://github.com/argerim/select2-rails
+gem 'select2-rails'
+# Add pagination for active record relation
+gem 'kaminari'
+# jQuery UI for the Rails asset pipeline
+gem 'jquery-ui-rails'
