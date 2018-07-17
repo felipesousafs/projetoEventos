@@ -1,14 +1,69 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>ProjetoEventos</title>
-    <%= csrf_meta_tags %>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= content_for?(:title) ? yield(:title) : "Event Manager" %></title>
+  <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if lt IE 9]>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+  <![endif]-->
 
-  <body>
-    <%= yield %>
-  </body>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+
+  <!-- For all other devices -->
+  <!-- Size should be 32 x 32 pixels -->
+  <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+</head>
+<body class="hold-transition skin-black-light sidebar-mini sidebar-collapse">
+<div id="RAILS_ENV_CONSTANT" style="display:none"><%= Rails.env %></div>
+<div class="wrapper">
+  <%= render 'shared/header' %>
+  <%= render 'shared/aside' %>
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <% if yield(:title_page).empty? %>
+        <% if ["index", "new", "create", "edit", "update", "show"].include?(action_name) %>
+          <%= render 'shared/title' %>
+        <% end -%>
+      <% else %>
+        <%= yield(:title_page) %>
+      <% end -%>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+      <%= bootstrap_flash %>
+
+      <% if yield(:full_box).empty? %>
+        <div class="box box-primary">
+          <% unless yield(:full_box_header).empty? %>
+            <div class="box-header with-border">
+              <%= yield(:full_box_header) %>
+            </div>
+          <% end %>
+          <div class="box-body">
+            <%= yield %>
+          </div>
+          <% unless yield(:full_box_footer).empty? %>
+            <div class="box-footer">
+              <%= yield(:full_box_footer) %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <%= yield %>
+      <% end %>
+    </section>
+  </div>
+  <%= render 'shared/footer' %>
+</div>
+</body>
 </html>

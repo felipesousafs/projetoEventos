@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= csrf_meta_tags %>
+  <title><%= content_for?(:title) ? yield(:title) : "Event Manager" %></title>
+  <%= stylesheet_link_tag :application, media: 'all' %>
+  <%= stylesheet_link_tag :devise, media: 'all' %>
+  <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+  <%= javascript_include_tag :application %>
+</head>
+<body>
+<div id="RAILS_ENV_CONSTANT" style="display:none"><%= Rails.env %></div>
+<%= javascript_include_tag :devise %>
+<div class="container">
+  <div class="login-box">
+    <div class="box box-widget widget-user-2">
+      <div class="widget-user-header bg-gray">
+        <h3 class="widget-user-username"><strong>Event Manager</strong>&nbsp;<small>IFPI</small></h3>
+        <h5 class="widget-user-desc">Instituto Federal do Piauí</h5>
+      </div>
+      <div class="box-body">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
