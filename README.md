@@ -14,7 +14,7 @@
 - [Google Drive](https://drive.google.com/drive/folders/1Fdx91jmX2TJUb9fRHzoPbpbmI3mPU5R9?usp=sharing)
 
 ## IMPORTANTE
- - Ao clonar o projeto, renomeie o arquivo **database.exemplo.yml** (entro da pasta /config) para **database.yml** e adicione seu *usuário* e *senha* do PostgreSQL
+ - Ao clonar o projeto, renomeie o arquivo **database.exemplo.yml** (dentro da pasta /config) para **database.yml** e adicione seu *usuário* e *senha* do PostgreSQL
 ## Regras para contribuição
 
  1. Criar um novo *branch*, a partir do **development**, com um nome que seja possível identificar o cartão no *Trello*;
