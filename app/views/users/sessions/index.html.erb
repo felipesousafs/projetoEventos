@@ -1,0 +1,24 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th><%= User.human_attribute_name(:email) %></th>
+      <th>Permissões</th>
+      <th>Criado em</th>
+      <th>Atualizado em</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.email %></td>
+        <td><%= user.roles.pluck(:name).join(', ') %></td>
+        <td><%= user.created_at.strftime('%d/%m/%Y') %></td>
+        <td><%= user.updated_at.strftime('%d/%m/%Y') %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

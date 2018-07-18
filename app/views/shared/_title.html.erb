@@ -1,0 +1,25 @@
+<% unless controller_name == "registrations" or controller_name == "sessions" %>
+  <%- value = "helpers.titles.#{action_name}" -%>
+  <h1>
+    <% if action_name == "index" %>
+      <i class="fa fa-fw fa-list"></i>
+    <% elsif action_name == "show" %>
+      <i class="fa fa-fw fa-eye"></i>
+    <% elsif action_name == "new" %>
+      <i class="fa fa-fw fa-edit"></i>
+    <% elsif action_name == "edit" %>
+      <i class="fa fa-fw fa-pencil"></i>
+    <% else %>
+      <i class="fa fa-fw fa-question-circle"></i>
+    <% end -%>
+    <%- value = "helpers.titles.#{action_name}" -%>
+
+    <%=t value %>
+    <% if action_name == "index" %>
+      <%=t 'of' %> <%= Kernel.const_get(controller_name.singularize.camelize).model_name.human.downcase.pluralize %>
+    <% else %>
+      <%= Kernel.const_get(controller_name.singularize.camelize).model_name.human.downcase %>
+    <% end -%>
+    <small>Event Manager</small>
+  </h1>
+<% end -%>

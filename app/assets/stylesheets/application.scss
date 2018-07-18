@@ -1,0 +1,93 @@
+// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "datatables";
+@import "font-awesome";
+@import "AdminLTE";
+@import "skins/all-skins.min";
+@import "select2";
+@import "select2-bootstrap";
+@import "jquery-ui";
+
+.dropdown-menu {
+  left: auto !important;
+  right: 0 !important;
+}
+
+.row-flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  flex-wrap: wrap;
+}
+
+.row-flex > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+
+.box-flex {
+  height: 100%;
+}
+
+input[type=date] {
+  width: 100% !important;
+}
+
+.toplink {
+  font-weight: bold;
+}
+
+.toplink > img {
+  width: 35px;
+  margin-top: -8px;
+  margin-left: 4px;
+}
+
+.logofooter {
+  width: 25px;
+  margin-top: -6px;
+  margin-left: 4px;
+}
+
+@media(min-width: 768px) {
+  .remove_fields {
+    .btn {
+      margin-top: 25px;
+    }
+  }
+  .top-25 {
+    margin-top: 25px;
+  }
+}
+
+.top-0 {
+  margin-top: 0px !important;
+}
+
+.select2-container--bootstrap .select2-selection--single .select2-selection__rendered {
+  margin-top: 1px !important;
+}
+
+.pagination {
+  margin: 0px !important;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header > img {
+  border-color: transparent;
+}
+
+.adjusts_handle {
+  width: 30px;
+  margin-top: 25px !important;
+}
+
+.adjusts_todo_list_li {
+  padding: 0px !important;
+
+  .row {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+}

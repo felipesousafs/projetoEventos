@@ -1,0 +1,55 @@
+<header class="main-header">
+  <nav class="navbar navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <%= link_to root_url, class: "navbar-brand" do %>
+          <span class="logo-lg"><b><i class="fa fa-file-text-o"></i>&nbsp;Seleções</b>&nbsp;TJPI</span>
+        <% end %>
+      </div>
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <% if user_signed_in? %>
+            <li class="dropdown user user-menu login-btn">
+              <%= link_to "#", class: "dropdown-toggle text-bold", data: {toggle: 'dropdown'}, 'aria-expanded': 'true' do %>
+                <i class="fa fa-user"></i>&nbsp;Usuário
+              <% end %>
+              <ul class="dropdown-menu">
+                <li class="user-header">
+                  <%= image_tag "logo.png", class: "img-square mini-logo-top" %>
+                  <p>
+                    <%= current_user.email %>
+                    <small>Membro desde <%= l(current_user.created_at) %></small>
+                  </p>
+                </li>
+                <li class="user-footer">
+                  <div class="pull-left">
+                    <%= link_to my_inscriptions_path, class: 'btn btn-default btn-flat' do %>
+                      <i class="fa fa-ticket"></i> Minhas inscrições
+                    <% end %>
+                  </div>
+                  <div class="pull-right">
+                    <%= link_to destroy_user_session_path, class: 'btn btn-default btn-flat', method: "delete" do %>
+                      <i class="fa fa-sign-out"></i> Sair
+                    <% end %>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          <% end %>
+          <% unless user_signed_in? %>
+            <li class="messages-menu">
+              <%= link_to new_user_session_path, class: "toplink text-bold login-btn" do %>
+                <i class="fa fa-lock"></i>&nbsp;Login
+              <% end %>
+            </li>
+          <% end %>
+          <li class="messages-menu">
+            <%= link_to "http://www.tjpi.jus.br", target: "_blank", class: "toplink text-bold" do %>
+              TJPI&nbsp;<%= image_tag "logo.png", class: "mini-logo-top" %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

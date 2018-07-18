@@ -1,0 +1,36 @@
+.table {
+  margin-bottom: 0;
+}
+.table-description {
+  width: 300px;
+}
+
+.table-responsive {
+  margin-bottom: 0;
+}
+
+.box-header {
+  padding-bottom: 15px;
+}
+
+.navbar-header:before, .navbar-header:after {
+  content: none;
+  display: flex;
+}
+
+.skin-black-light .main-header .navbar .navbar-custom-menu .navbar-nav > li > a, .skin-black-light .main-header .navbar .navbar-right > li > a {
+  border-left: none;
+  padding-right: 0;
+}
+
+.skin-black-light .main-header .navbar-brand {
+  border-right: none;
+}
+
+.divider {
+  margin: 0;
+}
+
+.login-btn {
+  margin-top: .29rem;
+}
