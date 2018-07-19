@@ -1,2 +1,0 @@
-class InscriptionItem < ApplicationRecord
-end
