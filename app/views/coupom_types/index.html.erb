@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Coupom Types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @coupom_types.each do |coupom_type| %>
+      <tr>
+        <td><%= coupom_type.name %></td>
+        <td><%= link_to 'Show', coupom_type %></td>
+        <td><%= link_to 'Edit', edit_coupom_type_path(coupom_type) %></td>
+        <td><%= link_to 'Destroy', coupom_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Coupom Type', new_coupom_type_path %>

@@ -1,0 +1,2 @@
+module CoupomTypesHelper
+end

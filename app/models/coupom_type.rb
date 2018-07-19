@@ -1,0 +1,2 @@
+class CoupomType < ApplicationRecord
+end
