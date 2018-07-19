@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :coupoms
+  resources :coupom_types
   resources :tags
   resources :event_item_types
   devise_for :users, controllers: {
