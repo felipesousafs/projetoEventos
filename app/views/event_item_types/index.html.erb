@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Event Item Types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @event_item_types.each do |event_item_type| %>
+      <tr>
+        <td><%= event_item_type.name %></td>
+        <td><%= link_to 'Show', event_item_type %></td>
+        <td><%= link_to 'Edit', edit_event_item_type_path(event_item_type) %></td>
+        <td><%= link_to 'Destroy', event_item_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Event Item Type', new_event_item_type_path %>
