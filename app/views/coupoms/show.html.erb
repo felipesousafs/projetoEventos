@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @coupom.value %>
+</p>
+
+<p>
+  <strong>Key:</strong>
+  <%= @coupom.key %>
+</p>
+
+<p>
+  <strong>Expiration:</strong>
+  <%= @coupom.expiration %>
+</p>
+
+<%= link_to 'Edit', edit_coupom_path(@coupom) %> |
+<%= link_to 'Back', coupoms_path %>
