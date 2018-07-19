@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180719155909) do
+ActiveRecord::Schema.define(version: 20180719160750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,18 @@ ActiveRecord::Schema.define(version: 20180719155909) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "event_type_id"
+    t.bigint "user_id"
+    t.json "tags"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_type_id"], name: "index_events_on_event_type_id"
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -89,4 +101,6 @@ ActiveRecord::Schema.define(version: 20180719155909) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "events", "event_types"
+  add_foreign_key "events", "users"
 end
