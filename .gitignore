@@ -24,3 +24,4 @@ config/secrets.yml.key
 config/database.yml
 config/secrets.yml
 public/uploads
+config/initializers/devise.rb
