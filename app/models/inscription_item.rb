@@ -1,0 +1,2 @@
+class InscriptionItem < ApplicationRecord
+end
