@@ -1,0 +1,2 @@
+module EventItemTypesHelper
+end
