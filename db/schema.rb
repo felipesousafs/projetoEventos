@@ -15,6 +15,12 @@ ActiveRecord::Schema.define(version: 20180719135902) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "event_item_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "inscription_items", force: :cascade do |t|
     t.string "name"
     t.float "value"
