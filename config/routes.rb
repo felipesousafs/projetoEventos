@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :institutions
   resources :tags
   resources :event_item_types
   devise_for :users, controllers: {
