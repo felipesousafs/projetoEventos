@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :event_types
   resources :coupoms
   resources :coupom_types
   resources :tags
