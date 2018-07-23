@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :events
+  resources :events do
+    resources :event_items
+  end
   resources :statuses
   resources :event_types
   resources :coupoms

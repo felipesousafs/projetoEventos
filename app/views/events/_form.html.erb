@@ -1,17 +1,60 @@
+<%= content_for :full_box do %>opa
+<% end %>
 
 <%= simple_form_for(@event) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-  <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :description %>
-    <%= f.association :event_type %>
-    <%= f.association :user %>
-    <%= f.input :tags %>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        Dados do Evento
+      </h3>
+    </div>
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :name %>
+        </div>
+        <div class="col-md-6">
+          <%= f.association :event_type %>
+        </div>
+        <div class="col-md-6">
+          <%= f.association :user, as: :hidden %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :description %>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :tags %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Atividades</h3>
+    </div>
+    <div class="box-body">
+      <ul id="event_item_boxes" class="todo-list">
+        <%= f.simple_fields_for :event_items do |b| %>
+          <%= render 'event_item_fields', f: b %>
+        <% end %>
+      </ul>
+      <div class="box-footer clearfix no-border add_event_item">
+        <%= link_to_add_association f, :event_items, class: "btn btn-primary pull-right",
+                                    data: {'association-insertion-node': '#event_item_boxes', 'association-insertion-method': 'append'} do %>
+          <i class='fa fa-plus'></i> Adicionar Atividade
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="box box-primary">
+    <div class="box-footer">
+      <%= f.button :submit %>
+    </div>
   </div>
 <% end %>
