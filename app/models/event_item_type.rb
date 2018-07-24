@@ -1,3 +1,3 @@
 class EventItemType < ApplicationRecord
-  belongs_to :event_item
+  has_many :event_item
 end

@@ -16,6 +16,7 @@ class EventsController < ApplicationController
   # GET /events/new
   def new
     @event = Event.new
+    @event.user = current_user
   end
 
   # GET /events/1/edit
@@ -28,7 +29,7 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
 
     respond_to do |format|
-      if @event.save
+      if @event.save!
         format.html {redirect_to @event, notice: 'Event was successfully created.'}
         format.json {render :show, status: :created, location: @event}
       else
@@ -67,10 +68,6 @@ class EventsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_event
     @event = Event.find(params[:id])
-  end
-
-  def set_user
-    @event.user = User.find(current_user.id)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
