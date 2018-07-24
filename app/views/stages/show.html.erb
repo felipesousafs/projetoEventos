@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @stage.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @stage.description %>
+</p>
+
+<p>
+  <b>Date start:</b>
+  <%= @stage.date_start %>
+</p>
+
+<p>
+  <b>Date end:</b>
+  <%= @stage.date_end %>
+</p>
+
+
+<%= link_to 'Edit', edit_event_stage_path(@stage.event, @stage) %> |
+<%= link_to 'Back', event_stages_path(@stage.event) %>

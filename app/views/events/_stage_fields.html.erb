@@ -1,0 +1,26 @@
+<li class="nested-fields stage accordion" id="stage">
+  <div class="tools">
+    <i class='fa fa-minus display_fields'></i>
+    <%= link_to_remove_association f do %>
+      <i class='fa fa-trash-o red'> Remover</i>
+    <% end %>
+  </div>
+  <div class='fundo-branco'>
+    <div class="row">
+      <div class="col-md-4">
+        <%= f.input :name %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :date_start, html5: true, as: :date %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :date_end, html5: true, as: :date %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <%= f.input :description, as: :text %>
+      </div>
+    </div>
+  </div>
+</li>
