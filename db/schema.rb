@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180719160750) do
+ActiveRecord::Schema.define(version: 20180723164543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,18 @@ ActiveRecord::Schema.define(version: 20180719160750) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "event_items", force: :cascade do |t|
+    t.bigint "event_id"
+    t.string "name"
+    t.text "description"
+    t.decimal "value"
+    t.bigint "event_item_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_event_items_on_event_id"
+    t.index ["event_item_type_id"], name: "index_event_items_on_event_item_type_id"
   end
 
   create_table "event_types", force: :cascade do |t|
@@ -101,6 +113,8 @@ ActiveRecord::Schema.define(version: 20180719160750) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "event_items", "event_item_types"
+  add_foreign_key "event_items", "events"
   add_foreign_key "events", "event_types"
   add_foreign_key "events", "users"
 end

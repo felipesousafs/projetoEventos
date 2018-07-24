@@ -35,7 +35,7 @@ $(document).ready(function () {
     $('.datatables').DataTable({
         paging: false,
         searching: false,
-        ordering:  false,
+        ordering: false,
         info: false,
         responsive: true,
         language: {
@@ -63,9 +63,10 @@ $(document).ready(function () {
         }
     });
 
-    $(".select2" ).select2({
+    $(".select2").select2({
         placeholder: "Escolha uma opção",
         language: "pt-BR",
         theme: "bootstrap"
     });
+
 });

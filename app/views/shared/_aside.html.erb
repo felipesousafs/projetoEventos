@@ -4,16 +4,25 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">MENU PRINCIPAL</li>
-      <% if user_signed_in? %>
-        <li class='<%= 'active' if controller_name == 'contests' %>'>
-          <%= link_to '#' do %>
-            <i class='fa fa-list-alt'></i> <span>Page 1</span>
+
+        <li class='<%= 'active' if controller_name == 'events' %>'>
+          <%= link_to events_path do %>
+            <i class='fa fa-list-alt'></i> <span>Eventos</span>
           <% end %>
         </li>
-        <li class='<%= 'active' if controller_name == 'users' && action_name == 'my_inscriptions' %>'>
-          <%= link_to '#' do %>
-            <i class='fa fa-ticket'></i> <span>Page 2</span>
-          <% end %>
+      <% if user_signed_in? %>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-list fa-fw"></i><span>Outros Cadastros</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li> <%= link_to EventType.model_name.human.pluralize, event_types_path %></li>
+            <li> <%= link_to EventItemType.model_name.human.pluralize, event_item_types_path %></li>
+            <li> <%= link_to CoupomType.model_name.human.pluralize, coupom_types_path %></li>
+          </ul>
         </li>
       <% end -%>
     </ul>
