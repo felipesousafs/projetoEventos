@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :institutions
   resources :events do
     resources :stages
   end
