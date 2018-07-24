@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   resources :events do
+    resources :stages
+  end
+  resources :events do
     resources :event_items
   end
   resources :statuses
