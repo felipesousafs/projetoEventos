@@ -1,7 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  after_action :set_user, only: :new
-
+  load_and_authorize_resource
   # GET /events
   # GET /events.json
   def index

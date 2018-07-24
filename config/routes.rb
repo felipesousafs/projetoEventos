@@ -13,8 +13,6 @@ Rails.application.routes.draw do
       registrations: 'users/registrations'
   }
 
-  devise_scope :user do
-    root to: 'users/sessions#index'
-  end
+  root 'events#index'
 
 end

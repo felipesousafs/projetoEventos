@@ -1,6 +1,7 @@
 class EventItemsController < ApplicationController
   before_action :set_event_items
   before_action :set_event_item, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET events/1/event_items
   def index
