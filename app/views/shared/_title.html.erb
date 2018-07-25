@@ -21,5 +21,14 @@
       <%= Kernel.const_get(controller_name.singularize.camelize).model_name.human.downcase %>
     <% end -%>
     <small>Event Manager</small>
+    <% unless ['users','inscriptions', 'inscription_items'].include?(controller_name)  %>
+      <% if can? :new, controller_name.singularize.camelize.constantize %>
+        <% unless action_name == 'new' %>
+            <%= link_to eval("new_#{controller_name.singularize}_path"), class: "btn btn-primary btn-xs" do %>
+              <%= t('.new', default: t("helpers.links.new")) %> <%= Kernel.const_get(controller_name.singularize.camelize).model_name.human %> <i class='fa fa-plus'></i>
+            <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
   </h1>
 <% end -%>

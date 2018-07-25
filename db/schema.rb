@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180719155909) do
+ActiveRecord::Schema.define(version: 20180725121101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,10 +35,74 @@ ActiveRecord::Schema.define(version: 20180719155909) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "event_items", force: :cascade do |t|
+    t.bigint "event_id"
+    t.string "name"
+    t.text "description"
+    t.decimal "value"
+    t.bigint "event_item_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_event_items_on_event_id"
+    t.index ["event_item_type_id"], name: "index_event_items_on_event_item_type_id"
+  end
+
   create_table "event_types", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "event_type_id"
+    t.bigint "user_id"
+    t.json "tags"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_type_id"], name: "index_events_on_event_type_id"
+    t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "inscription_items", force: :cascade do |t|
+    t.bigint "inscription_id"
+    t.decimal "value"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "event_item_id"
+    t.index ["event_item_id"], name: "index_inscription_items_on_event_item_id"
+    t.index ["inscription_id"], name: "index_inscription_items_on_inscription_id"
+  end
+
+  create_table "inscriptions", force: :cascade do |t|
+    t.boolean "paid"
+    t.bigint "event_id"
+    t.bigint "user_id"
+    t.bigint "coupom_id"
+    t.datetime "paid_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["coupom_id"], name: "index_inscriptions_on_coupom_id"
+    t.index ["event_id"], name: "index_inscriptions_on_event_id"
+    t.index ["user_id"], name: "index_inscriptions_on_user_id"
+  end
+
+  create_table "institutions", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "partnerships", force: :cascade do |t|
+    t.string "name"
+    t.bigint "event_id"
+    t.bigint "institution_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_partnerships_on_event_id"
+    t.index ["institution_id"], name: "index_partnerships_on_institution_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -49,6 +113,17 @@ ActiveRecord::Schema.define(version: 20180719155909) do
     t.datetime "updated_at", null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
+  end
+
+  create_table "stages", force: :cascade do |t|
+    t.bigint "event_id"
+    t.string "name"
+    t.text "description"
+    t.datetime "date_start"
+    t.datetime "date_end"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_stages_on_event_id"
   end
 
   create_table "statuses", force: :cascade do |t|
@@ -89,4 +164,16 @@ ActiveRecord::Schema.define(version: 20180719155909) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "event_items", "event_item_types"
+  add_foreign_key "event_items", "events"
+  add_foreign_key "events", "event_types"
+  add_foreign_key "events", "users"
+  add_foreign_key "inscription_items", "event_items"
+  add_foreign_key "inscription_items", "inscriptions"
+  add_foreign_key "inscriptions", "coupoms"
+  add_foreign_key "inscriptions", "events"
+  add_foreign_key "inscriptions", "users"
+  add_foreign_key "partnerships", "events"
+  add_foreign_key "partnerships", "institutions"
+  add_foreign_key "stages", "events"
 end

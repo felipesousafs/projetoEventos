@@ -27,6 +27,26 @@
 //= require rails-ujs
 //= require_tree .
 
+function select_item(link) {
+    console.log(link);
+    val = $(link).parent().find("input").val()
+    if (val == 'true') {
+        $(link).parent().find("input").val('false');
+        $(link).text('Remover');
+        $(link).removeClass('btn-success');
+        $(link).addClass('btn-danger');
+        $(link).parent().next().find('input').removeClass('hidden');
+        $(link).parent().next().next().find('input').removeClass('hidden');
+    } else {
+        $(link).parent().find("input").val('true');
+        $(link).text('Selecionar');
+        $(link).addClass('btn-success');
+        $(link).removeClass('btn-danger');
+        $(link).parent().next().find('input').addClass('hidden');
+        $(link).parent().next().next().find('input').addClass('hidden');
+    }
+}
+
 $(document).ready(function () {
     $('input[id$=cpf]').mask('000.000.000-00');
 
@@ -35,7 +55,7 @@ $(document).ready(function () {
     $('.datatables').DataTable({
         paging: false,
         searching: false,
-        ordering:  false,
+        ordering: false,
         info: false,
         responsive: true,
         language: {
@@ -63,9 +83,10 @@ $(document).ready(function () {
         }
     });
 
-    $(".select2" ).select2({
+    $(".select2").select2({
         placeholder: "Escolha uma opção",
         language: "pt-BR",
         theme: "bootstrap"
     });
+
 });

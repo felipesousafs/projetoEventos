@@ -1,0 +1,25 @@
+<h1>Listing inscription_items</h1>
+
+<table>
+  <tr>
+    <th>Value</th>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @inscription_items.each do |inscription_item| %>
+  <tr>
+    <td><%= inscription_item.value %></td>
+    <td><%= inscription_item.name %></td>
+    <td><%= link_to 'Show', [inscription_item.inscription, inscription_item] %></td>
+    <td><%= link_to 'Edit', edit_inscription_inscription_item_path(inscription_item.inscription, inscription_item) %></td>
+    <td><%= link_to 'Destroy', [inscription_item.inscription, inscription_item], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Inscription item', new_inscription_inscription_item_path(params[:inscription_id]) %>
