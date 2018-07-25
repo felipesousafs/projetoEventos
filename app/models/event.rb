@@ -3,6 +3,8 @@ class Event < ApplicationRecord
   has_many :event_items, :dependent => :destroy
   has_many :partnerships
   has_many :institutions, through: :partnerships
+  has_many :inscriptions
+  has_many :coupoms
   has_one :event_item_type, through: :event_items
   belongs_to :event_type
   belongs_to :user

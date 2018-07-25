@@ -20,8 +20,8 @@
     <% else %>
       <%= Kernel.const_get(controller_name.singularize.camelize).model_name.human.downcase %>
     <% end -%>
-    <small>Event Manager <%= controller_name.singularize.camelize.constantize %></small>
-    <% unless controller_name == 'users' %>
+    <small>Event Manager</small>
+    <% unless ['users','inscriptions', 'inscription_items'].include?(controller_name)  %>
       <% if can? :new, controller_name.singularize.camelize.constantize %>
         <% unless action_name == 'new' %>
             <%= link_to eval("new_#{controller_name.singularize}_path"), class: "btn btn-primary btn-xs" do %>

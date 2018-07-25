@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  inscription: one
+  value: 9.99
+  name: MyString
+
+two:
+  inscription: two
+  value: 9.99
+  name: MyString

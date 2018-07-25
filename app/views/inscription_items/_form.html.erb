@@ -1,0 +1,25 @@
+<%= form_for([@inscription_item.inscription, @inscription_item]) do |f| %>
+  <% if @inscription_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@inscription_item.errors.count, "error") %> prohibited this inscription_item from being saved:</h2>
+
+      <ul>
+      <% @inscription_item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.text_field :value %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
