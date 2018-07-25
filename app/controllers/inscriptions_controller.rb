@@ -28,6 +28,9 @@ class InscriptionsController < ApplicationController
   # POST /inscriptions.json
   def create
     @inscription = Inscription.new(inscription_params)
+    @inscription.coupom = Coupom.find_by_key(params[:coupom_key])
+    items = params[:selected_items]
+    @inscription.add_event_item(items)
 
     respond_to do |format|
       if @inscription.save
@@ -72,6 +75,6 @@ class InscriptionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def inscription_params
-      params.require(:inscription).permit(:paid, :event_id, :user_id, :coupom_id, :paid_at)
+      params.require(:inscription).permit(:paid, :event_id, :user_id, :coupom_key, :paid_at, inscription_items_attributes: [:id, :name, :inscription_id, :event_item_id])
     end
 end

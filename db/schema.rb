@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180725001206) do
+ActiveRecord::Schema.define(version: 20180725121101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,8 @@ ActiveRecord::Schema.define(version: 20180725001206) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "event_item_id"
+    t.index ["event_item_id"], name: "index_inscription_items_on_event_item_id"
     t.index ["inscription_id"], name: "index_inscription_items_on_inscription_id"
   end
 
@@ -166,6 +168,7 @@ ActiveRecord::Schema.define(version: 20180725001206) do
   add_foreign_key "event_items", "events"
   add_foreign_key "events", "event_types"
   add_foreign_key "events", "users"
+  add_foreign_key "inscription_items", "event_items"
   add_foreign_key "inscription_items", "inscriptions"
   add_foreign_key "inscriptions", "coupoms"
   add_foreign_key "inscriptions", "events"

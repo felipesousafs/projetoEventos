@@ -2,7 +2,7 @@
 
 <h1>Inscriptions</h1>
 
-<table>
+<table class="table table-bordered table-striped">
   <thead>
     <tr>
       <th>Paid</th>
@@ -18,18 +18,13 @@
     <% @inscriptions.each do |inscription| %>
       <tr>
         <td><%= inscription.paid %></td>
-        <td><%= inscription.event %></td>
-        <td><%= inscription.user %></td>
+        <td><%= inscription.event.name %></td>
+        <td><%= inscription.user.name %></td>
         <td><%= inscription.coupom %></td>
         <td><%= inscription.paid_at %></td>
         <td><%= link_to 'Show', inscription %></td>
-        <td><%= link_to 'Edit', edit_inscription_path(inscription) %></td>
         <td><%= link_to 'Destroy', inscription, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Inscription', new_inscription_path %>
