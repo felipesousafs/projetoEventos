@@ -1,0 +1,37 @@
+<%= content_for :full_box do %>opa
+<% end %>
+
+<%= simple_form_for(@inscription) do |f| %>
+
+  <%= f.association :event, as: :hidden %>
+  <%= f.input :paid, as: :hidden %>
+  <%= f.association :user, as: :hidden %>
+  <%= f.input :paid_at, as: :hidden %>
+
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        Dados do Evento
+      </h3>
+    </div>
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.label 'Evento' %>
+          <pre><strong><%= @inscription.event.event_type.name %></strong> - <%= @inscription.event.name %></pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :coupom %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="box box-primary">
+    <div class="box-footer">
+      <%= link_to t('.back', :default => t("helpers.links.back")), event_path(@inscription.event), :class => 'btn btn-default' %>
+      <%= f.button :submit, 'Confirmar!', class: 'btn btn-success' %>
+    </div>
+  </div>
+<% end %>

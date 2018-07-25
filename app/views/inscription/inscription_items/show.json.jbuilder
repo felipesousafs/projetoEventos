@@ -1,0 +1,1 @@
+json.partial! "inscription_inscription_items/inscription_inscription_item", inscription_inscription_item: @inscription_inscription_item

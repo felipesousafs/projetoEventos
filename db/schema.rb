@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180724211611) do
+ActiveRecord::Schema.define(version: 20180725001206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,28 @@ ActiveRecord::Schema.define(version: 20180724211611) do
     t.datetime "updated_at", null: false
     t.index ["event_type_id"], name: "index_events_on_event_type_id"
     t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "inscription_items", force: :cascade do |t|
+    t.bigint "inscription_id"
+    t.decimal "value"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inscription_id"], name: "index_inscription_items_on_inscription_id"
+  end
+
+  create_table "inscriptions", force: :cascade do |t|
+    t.boolean "paid"
+    t.bigint "event_id"
+    t.bigint "user_id"
+    t.bigint "coupom_id"
+    t.datetime "paid_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["coupom_id"], name: "index_inscriptions_on_coupom_id"
+    t.index ["event_id"], name: "index_inscriptions_on_event_id"
+    t.index ["user_id"], name: "index_inscriptions_on_user_id"
   end
 
   create_table "institutions", force: :cascade do |t|
@@ -144,6 +166,10 @@ ActiveRecord::Schema.define(version: 20180724211611) do
   add_foreign_key "event_items", "events"
   add_foreign_key "events", "event_types"
   add_foreign_key "events", "users"
+  add_foreign_key "inscription_items", "inscriptions"
+  add_foreign_key "inscriptions", "coupoms"
+  add_foreign_key "inscriptions", "events"
+  add_foreign_key "inscriptions", "users"
   add_foreign_key "partnerships", "events"
   add_foreign_key "partnerships", "institutions"
   add_foreign_key "stages", "events"
