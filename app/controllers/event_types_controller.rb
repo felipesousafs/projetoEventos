@@ -1,6 +1,5 @@
 class EventTypesController < ApplicationController
   before_action :set_event_type, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource
 
   # GET /event_types
   # GET /event_types.json

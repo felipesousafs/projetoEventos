@@ -1,6 +1,5 @@
 class CoupomTypesController < ApplicationController
   before_action :set_coupom_type, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource
 
   # GET /coupom_types
   # GET /coupom_types.json
