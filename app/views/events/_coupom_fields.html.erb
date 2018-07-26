@@ -1,0 +1,29 @@
+<li class="nested-fields coupom accordion" id="coupom">
+  <div class="tools">
+    <i class='fa fa-minus display_fields'></i>
+    <%= link_to_remove_association f do %>
+      <i class='fa fa-trash-o red'> Remover</i>
+    <% end %>
+  </div>
+  <div class='fundo-branco'>
+    <div class="row">
+      <div class="col-md-3">
+        <%= f.input :key %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :value %>
+      </div>
+      <div class="col-md-3">
+        <%= f.association :coupom_type %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <%= f.input :expiration, html5: true, as: :date %>
+      </div>
+      <div class="col-md-5">
+        <%= f.input :event, as: :hidden %>
+      </div>
+    </div>
+  </div>
+</li>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180725121101) do
+ActiveRecord::Schema.define(version: 20180726123503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,11 @@ ActiveRecord::Schema.define(version: 20180725121101) do
     t.date "expiration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "event_id"
+    t.bigint "coupom_type_id"
+    t.boolean "used", default: false
+    t.index ["coupom_type_id"], name: "index_coupoms_on_coupom_type_id"
+    t.index ["event_id"], name: "index_coupoms_on_event_id"
   end
 
   create_table "event_item_types", force: :cascade do |t|
@@ -164,6 +169,8 @@ ActiveRecord::Schema.define(version: 20180725121101) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "coupoms", "coupom_types"
+  add_foreign_key "coupoms", "events"
   add_foreign_key "event_items", "event_item_types"
   add_foreign_key "event_items", "events"
   add_foreign_key "events", "event_types"

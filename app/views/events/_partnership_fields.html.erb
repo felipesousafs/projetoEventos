@@ -11,7 +11,7 @@
         <%= f.input :name, hint: 'Ex: Patrocínio, Apoio, Realização, etc...' %>
       </div>
       <div class="col-md-3">
-        <%= f.association :institution %>
+        <%= f.association :institution, input_html: { class: 'select2', 'data-endpoint': institutions_path } %>
       </div>
     </div>
   </div>

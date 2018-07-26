@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :events do
     get 'inscriptions/new', to: 'inscriptions#new', as: 'new_inscription'
   end
+
   resources :statuses
   resources :event_types
   resources :coupoms

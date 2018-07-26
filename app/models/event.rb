@@ -12,6 +12,7 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :event_items, allow_destroy: true
   accepts_nested_attributes_for :stages, allow_destroy: true
   accepts_nested_attributes_for :partnerships, allow_destroy: true
+  accepts_nested_attributes_for :coupoms, allow_destroy: true
 
   validates_associated :event_items
   validates_associated :stages
