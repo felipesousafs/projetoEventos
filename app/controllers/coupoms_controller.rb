@@ -70,6 +70,6 @@ class CoupomsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def coupom_params
-      params.require(:coupom).permit(:value, :key, :expiration)
+      params.require(:coupom).permit(:value, :key, :expiration, :event, :coupom_type, :used)
     end
 end
