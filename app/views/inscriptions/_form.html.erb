@@ -1,0 +1,75 @@
+<%= content_for :full_box do %>opa
+<% end %>
+
+<%= simple_form_for(@inscription) do |f| %>
+
+  <%= f.association :event, as: :hidden %>
+  <%= f.input :paid, as: :hidden %>
+  <%= f.association :user, as: :hidden %>
+  <%= f.input :paid_at, as: :hidden %>
+
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        Dados do Evento
+      </h3>
+    </div>
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.label 'Evento' %>
+          <pre><strong><%= @inscription.event.event_type.name %></strong> - <%= @inscription.event.name %></pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <%= label_tag :coupom_key, 'Possui um cupom? Digite aqui: ' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <%= text_field_tag :coupom_key, '', class: 'col-md-3' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="box box-primary">
+    <div class="box-header with-border inside">
+      <h3 class="box-title">
+        Atividades disponíveis
+      </h3>
+    </div>
+    <div class="box-body no-padding">
+      <table class="table table-striped table-bordered" id="ic">
+        <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Valor</th>
+          <th>Tipo de atividade</th>
+          <th>Descrição</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @inscription.event.event_items.each do |item| %>
+          <tr class="text-vertical ">
+            <td><%= item.name %></td>
+            <td><%= item.value %></td>
+            <td><%= item.event_item_type.name %></td>
+            <td><p><%= item.description %></p></td>
+            <td class="text-center">
+              <%= check_box_tag 'selected_items[]', item.id %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="box box-primary">
+    <div class="box-footer">
+      <%= link_to t('.back', :default => t("helpers.links.back")), event_path(@inscription.event), :class => 'btn btn-default' %>
+      <%= f.button :submit, 'Confirmar!', class: 'btn btn-success' %>
+    </div>
+  </div>
+<% end %>
