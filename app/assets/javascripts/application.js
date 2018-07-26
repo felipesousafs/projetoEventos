@@ -112,8 +112,13 @@ function add_select_2_field(element){
     });
 
 }
-function add_select2(){
-    $('.select2').select2({
+function add_select2(element){
+    if(element) {
+        var $element = element;
+    }else{
+        var $element = $(".select2");
+    }
+    $element.select2({
         placeholder: "Escolha uma opção",
         language: "pt-BR",
         theme: "bootstrap",
@@ -162,7 +167,7 @@ $(document).ready(function () {
 
     $('#partnership_boxes').on('cocoon:after-insert', function(e, insertedItem) {
         var $element = $(insertedItem.find('select'));
-        add_select_2_field($element);
+        add_select2($element);
     });
 
 });
