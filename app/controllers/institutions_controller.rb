@@ -8,6 +8,7 @@ class InstitutionsController < ApplicationController
                                           "%#{params[:q]}%")
 
     respond_to do |format|
+      format.html
       format.json { render json: @institutions.map { |p| { id: p.id, name: p.name } } }
     end
   end
@@ -17,6 +18,7 @@ class InstitutionsController < ApplicationController
                                "%#{params[:q]}%")
 
     respond_to do |format|
+      format.html
       format.json { render json: @institutions.map { |p| { id: p.id, name: p.name } } }
     end
   end

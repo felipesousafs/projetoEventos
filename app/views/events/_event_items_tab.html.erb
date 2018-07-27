@@ -1,0 +1,22 @@
+<div class="box-body no-padding">
+  <table class="table table-striped table-bordered" id="ic">
+    <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Valor</th>
+      <th>Tipo de atividade</th>
+      <th>Descrição</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @event.event_items.each do |item| %>
+      <tr class="text-vertical ">
+        <td><%= item.name %></td>
+        <td><%= item.value %></td>
+        <td><%= item.event_item_type.name %></td>
+        <td><p><%= item.description %></p></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
