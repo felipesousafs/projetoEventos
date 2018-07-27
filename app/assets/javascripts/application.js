@@ -126,6 +126,12 @@ function add_select2(element){
     });
 }
 
+function toggle_collapse(element){
+    if (element){
+        $(element).next().collapse('toggle');
+    }
+}
+
 $(document).ready(function () {
     $('input[id$=cpf]').mask('000.000.000-00');
 
@@ -168,6 +174,20 @@ $(document).ready(function () {
     $('#partnership_boxes').on('cocoon:after-insert', function(e, insertedItem) {
         var $element = $(insertedItem.find('select'));
         add_select2($element);
+        $('.collapse').collapse('hide');
+        insertedItem.find('.collapse').last().collapse('show');
+    });
+    $('#stage_boxes').on('cocoon:after-insert', function(e, insertedItem) {
+        $('.collapse').collapse('hide');
+        insertedItem.find('.collapse').last().collapse('show');
+    });
+    $('#event_item_boxes').on('cocoon:after-insert', function(e, insertedItem) {
+        $('.collapse').collapse('hide');
+        insertedItem.find('.collapse').last().collapse('show');
+    });
+    $('#coupom_boxes').on('cocoon:after-insert', function(e, insertedItem) {
+        $('.collapse').collapse('hide');
+        insertedItem.find('.collapse').last().collapse('show');
     });
 
 });

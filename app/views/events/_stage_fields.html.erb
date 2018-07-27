@@ -1,11 +1,13 @@
-<li class="nested-fields stage accordion" id="stage">
-  <div class="tools">
-    <i class='fa fa-minus display_fields'></i>
-    <%= link_to_remove_association f do %>
-      <i class='fa fa-trash-o red'> Remover</i>
-    <% end %>
+<li class="nested-fields stage" id="stage">
+  <div onclick="toggle_collapse(this);" style="width: 100%;" id="open_close_collapse">
+    &nbsp; <a class='label label-warning pull-left abrir' id="abrir"> Mostrar/Ocultar  </a>
   </div>
-  <div class='fundo-branco'>
+  <div class='fundo-branco collapse' id="collapse_stage">
+    <div class="pull-right">
+      <%= link_to_remove_association f do %>
+        <i class='fa fa-trash-o btn btn-danger'> Remover</i>
+      <% end %>
+    </div>
     <div class="row">
       <div class="col-md-4">
         <%= f.input :name %>
