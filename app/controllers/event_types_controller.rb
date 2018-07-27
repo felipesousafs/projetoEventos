@@ -9,6 +9,7 @@ class EventTypesController < ApplicationController
                                        "%#{params[:q]}%")
 
     respond_to do |format|
+      format.html
       format.json { render json: @event_types.map { |p| { id: p.id, name: p.name } } }
     end
   end
