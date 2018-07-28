@@ -22,13 +22,16 @@ class EventsController < ApplicationController
   def edit
   end
 
+  def save_tags
+    @event.add_tags(params)
+  end
   # POST /events
   # POST /events.json
   def create
     @event = Event.new(event_params)
-
     respond_to do |format|
       if @event.save!
+        save_tags
         format.html {redirect_to @event, notice: 'Event was successfully created.'}
         format.json {render :show, status: :created, location: @event}
       else
@@ -43,6 +46,7 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(event_params)
+        save_tags
         format.html {redirect_to @event, notice: 'Event was successfully updated.'}
         format.json {render :show, status: :ok, location: @event}
       else
@@ -62,6 +66,13 @@ class EventsController < ApplicationController
     end
   end
 
+  def tag_list
+    @event = Event.find(params[:event_id])
+    respond_to do |format|
+      format.json { render json: @event.tags.map { |p| { id: p.id, name: p.name } } }
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -71,6 +82,11 @@ class EventsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
-    params.require(:event).permit(:name, :description, :event_type_id, :user_id, :tags, coupoms_attributes: [:id, :value, :key, :expiration, :event_id, :coupom_type_id, :used, :_destroy], event_items_attributes: [:id, :name, :description, :value, :event_item_type_id, :_destroy], stages_attributes: [:id, :name, :description, :date_start, :date_end, :_destroy], partnerships_attributes: [:id, :name, :event_id, :institution_id, :_destroy])
+    params.require(:event).permit(:name, :description, :event_type_id, :user_id, :tag_list, :tags_list,
+                                  coupoms_attributes: [:id, :value, :key, :expiration, :event_id, :coupom_type_id, :used, :_destroy],
+                                  event_items_attributes: [:id, :name, :description, :value, :event_item_type_id, :_destroy],
+                                  stages_attributes: [:id, :name, :description, :date_start, :date_end, :_destroy],
+                                  partnerships_attributes: [:id, :name, :event_id, :institution_id, :_destroy],
+    )
   end
 end

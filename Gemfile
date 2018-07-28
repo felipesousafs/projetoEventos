@@ -76,7 +76,12 @@ gem 'cocoon'
 gem 'money-rails', '~>1'
 # Integrate Select2 javascript library with Rails asset pipeline https://github.com/argerim/select2-rails
 gem 'select2-rails'
+gem 'chosen-rails'
 # Add pagination for active record relation
 gem 'kaminari'
 # jQuery UI for the Rails asset pipeline
 gem 'jquery-ui-rails'
+
+
+# Gem para uso das Tags
+gem 'acts-as-taggable-on', '~> 6.0'
