@@ -23,6 +23,7 @@
 //= require select2-full
 //= require select2_locale_pt-BR
 //= require jquery.mask
+//= require chosen-jquery
 
 //= require rails-ujs
 //= require_tree .
@@ -46,15 +47,18 @@ function select_item(link) {
         $(link).parent().next().next().find('input').addClass('hidden');
     }
 }
-function add_select_2_field(element){
-    if(element) {
+
+function add_select_2_field(element) {
+    if (element) {
         var $element = element;
-    }else{
+    } else {
         var $element = $(".select2-field");
     }
+
     $element.select2({
         theme: 'bootstrap',
         tags: true,
+        tokenSeparators: [',', ' '],
         createTag: function (params) {
             var term = $.trim(params.term);
 
@@ -77,18 +81,18 @@ function add_select_2_field(element){
             url: $element.data('endpoint'),
             dataType: 'json',
             delay: 250,
-            data: function(params) {
+            data: function (params) {
                 return {
                     q: params.term,
                     page: params.page
                 };
             },
-            processResults: function(data) {
+            processResults: function (data) {
                 return {
-                    results: $.map(data, function(item) {
+                    results: $.map(data, function (item) {
                         return {
                             text: item.name,
-                            id: item.id
+                            id: item.name
                         };
                     })
                 };
@@ -112,10 +116,39 @@ function add_select_2_field(element){
     });
 
 }
-function add_select2(element){
-    if(element) {
+
+function preload_tags(event_id, element) {
+    if (element) {
         var $element = element;
-    }else{
+    } else {
+        var $element = $(".select2-field");
+    }
+    $.ajax({
+        type: 'GET',
+        url: '/events/' +event_id+ '/tag_list'
+    }).then(function (data) {
+
+        data.forEach(add_tag);
+        function add_tag(value, index, ar) {
+            // create the option and append to Select2
+            console.log("Data name: ", value);
+            var option = new Option(value.name, value.name, true, true);
+            $element.append(option).trigger('change');
+        }
+        // manually trigger the `select2:select` event
+        $element.trigger({
+            type: 'select2:select',
+            params: {
+                data: data
+            }
+        });
+    });
+}
+
+function add_select2(element) {
+    if (element) {
+        var $element = element;
+    } else {
         var $element = $(".select2");
     }
     $element.select2({
@@ -126,10 +159,25 @@ function add_select2(element){
     });
 }
 
-function toggle_collapse(element){
-    if (element){
+function toggle_collapse(element) {
+    if (element) {
         $(element).next().collapse('toggle');
     }
+}
+
+function add_chosen(element) {
+    var $element;
+    if (element) {
+        $element = element;
+    } else {
+        $element = $(".chzn-select-multi");
+    }
+    $element.attr("multiple", "multiple");
+
+    $element.chosen({
+        allow_single_deselect: true,
+        width: '100%'
+    });
 }
 
 $(document).ready(function () {
@@ -139,6 +187,7 @@ $(document).ready(function () {
 
     add_select2();
     add_select_2_field();
+    add_chosen();
 
     $('.datatables').DataTable({
         paging: false,
@@ -171,21 +220,21 @@ $(document).ready(function () {
         }
     });
 
-    $('#partnership_boxes').on('cocoon:after-insert', function(e, insertedItem) {
+    $('#partnership_boxes').on('cocoon:after-insert', function (e, insertedItem) {
         var $element = $(insertedItem.find('select'));
         add_select2($element);
         $('.collapse').collapse('hide');
         insertedItem.find('.collapse').last().collapse('show');
     });
-    $('#stage_boxes').on('cocoon:after-insert', function(e, insertedItem) {
+    $('#stage_boxes').on('cocoon:after-insert', function (e, insertedItem) {
         $('.collapse').collapse('hide');
         insertedItem.find('.collapse').last().collapse('show');
     });
-    $('#event_item_boxes').on('cocoon:after-insert', function(e, insertedItem) {
+    $('#event_item_boxes').on('cocoon:after-insert', function (e, insertedItem) {
         $('.collapse').collapse('hide');
         insertedItem.find('.collapse').last().collapse('show');
     });
-    $('#coupom_boxes').on('cocoon:after-insert', function(e, insertedItem) {
+    $('#coupom_boxes').on('cocoon:after-insert', function (e, insertedItem) {
         $('.collapse').collapse('hide');
         insertedItem.find('.collapse').last().collapse('show');
     });
