@@ -5,7 +5,13 @@ class EventTypesController < ApplicationController
   # GET /event_types
   # GET /event_types.json
   def index
-    @event_types = EventType.all
+    @event_types = EventType.all.where('name ILIKE ?',
+                                       "%#{params[:q]}%")
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @event_types.map { |p| { id: p.id, name: p.name } } }
+    end
   end
 
   # GET /event_types/1

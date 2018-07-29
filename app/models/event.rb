@@ -1,4 +1,6 @@
 class Event < ApplicationRecord
+  acts_as_taggable
+
   has_many :stages
   has_many :event_items, :dependent => :destroy
   has_many :partnerships
@@ -12,8 +14,21 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :event_items, allow_destroy: true
   accepts_nested_attributes_for :stages, allow_destroy: true
   accepts_nested_attributes_for :partnerships, allow_destroy: true
+  accepts_nested_attributes_for :coupoms, allow_destroy: true
 
   validates_associated :event_items
   validates_associated :stages
+
+
+  def add_tags(params)
+    list_of_tags = params[:event][:tags_list].join(',')
+    logger.info(list_of_tags)
+    self.tag_list = list_of_tags
+    self.save
+  end
+
+  def tags_list
+    tag_list.join(',')
+  end
 
 end

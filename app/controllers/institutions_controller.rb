@@ -4,7 +4,23 @@ class InstitutionsController < ApplicationController
   # GET /institutions
   # GET /institutions.json
   def index
-    @institutions = Institution.all
+    @institutions = Institution.all.where('name LIKE ?',
+                                          "%#{params[:q]}%")
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @institutions.map { |p| { id: p.id, name: p.name } } }
+    end
+  end
+
+  def search
+    @institutions = Institution.all.where('name LIKE ?',
+                               "%#{params[:q]}%")
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @institutions.map { |p| { id: p.id, name: p.name } } }
+    end
   end
 
   # GET /institutions/1

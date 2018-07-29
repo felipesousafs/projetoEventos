@@ -1,0 +1,18 @@
+<div class="box-body no-padding">
+  <table class="table table-striped table-bordered" id="ic">
+    <thead>
+    <tr>
+      <th>Tipo de parceria</th>
+      <th>Instituição</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @event.partnerships.each do |partnership| %>
+      <tr class="text-vertical ">
+        <td><%= partnership.name %></td>
+        <td><%= partnership.institution.name %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

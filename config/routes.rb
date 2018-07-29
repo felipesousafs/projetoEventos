@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :events do
+    end
   resources :inscriptions do
     resources :inscription_items
   end
@@ -11,7 +13,9 @@ Rails.application.routes.draw do
   end
   resources :events do
     get 'inscriptions/new', to: 'inscriptions#new', as: 'new_inscription'
+    get 'tag_list', to: 'events#tag_list', as: 'tag_list'
   end
+
   resources :statuses
   resources :event_types
   resources :coupoms

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180725121101) do
+ActiveRecord::Schema.define(version: 20180728135529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,11 @@ ActiveRecord::Schema.define(version: 20180725121101) do
     t.date "expiration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "event_id"
+    t.bigint "coupom_type_id"
+    t.boolean "used", default: false
+    t.index ["coupom_type_id"], name: "index_coupoms_on_coupom_type_id"
+    t.index ["event_id"], name: "index_coupoms_on_event_id"
   end
 
   create_table "event_item_types", force: :cascade do |t|
@@ -58,7 +63,6 @@ ActiveRecord::Schema.define(version: 20180725121101) do
     t.text "description"
     t.bigint "event_type_id"
     t.bigint "user_id"
-    t.json "tags"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_type_id"], name: "index_events_on_event_type_id"
@@ -132,10 +136,31 @@ ActiveRecord::Schema.define(version: 20180725121101) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "taggings", id: :serial, force: :cascade do |t|
+    t.integer "tag_id"
+    t.string "taggable_type"
+    t.integer "taggable_id"
+    t.string "tagger_type"
+    t.integer "tagger_id"
+    t.string "context", limit: 128
+    t.datetime "created_at"
+    t.index ["context"], name: "index_taggings_on_context"
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
+    t.index ["taggable_id"], name: "index_taggings_on_taggable_id"
+    t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
+    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
+    t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "taggings_count", default: 0
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -164,6 +189,8 @@ ActiveRecord::Schema.define(version: 20180725121101) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "coupoms", "coupom_types"
+  add_foreign_key "coupoms", "events"
   add_foreign_key "event_items", "event_item_types"
   add_foreign_key "event_items", "events"
   add_foreign_key "events", "event_types"

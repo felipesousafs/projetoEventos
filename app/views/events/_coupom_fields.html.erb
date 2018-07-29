@@ -1,0 +1,31 @@
+<li class="nested-fields coupom accordion" id="coupom">
+  <div onclick="toggle_collapse(this);" style="width: 100%;">
+    &nbsp;<a class='label label-warning pull-left abrir' id="abrir"> Mostrar/Ocultar </a>
+  </div>
+  <div class='fundo-branco collapse' id="collapse">
+    <div class="pull-right">
+      <%= link_to_remove_association f do %>
+        <i class='fa fa-trash-o btn btn-danger'> Remover</i>
+      <% end %>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <%= f.input :key %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :value %>
+      </div>
+      <div class="col-md-3">
+        <%= f.association :coupom_type %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <%= f.input :expiration, html5: true, as: :date %>
+      </div>
+      <div class="col-md-5">
+        <%= f.input :event, as: :hidden %>
+      </div>
+    </div>
+  </div>
+</li>
