@@ -85,3 +85,5 @@ gem 'jquery-ui-rails'
 
 # Gem para uso das Tags
 gem 'acts-as-taggable-on', '~> 6.0'
+gem 'execjs'
+gem 'coffee-script-source', '1.8.0'
