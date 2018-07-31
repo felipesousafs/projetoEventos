@@ -76,28 +76,8 @@ function add_select_2_field(element) {
             data.push(tag);
         },
         minimumInputLength: 1,
-        maximumInputLength: 20,
-        ajax: {
-            url: $element.data('endpoint'),
-            dataType: 'json',
-            delay: 250,
-            data: function (params) {
-                return {
-                    q: params.term,
-                    page: params.page
-                };
-            },
-            processResults: function (data) {
-                return {
-                    results: $.map(data, function (item) {
-                        return {
-                            text: item.name,
-                            id: item.name
-                        };
-                    })
-                };
-            }
-        }
+        maximumInputLength: 20
+
     });
     $element.on("select2:select", function (e) {
         console.log("select2:select", e.params);
@@ -117,7 +97,7 @@ function add_select_2_field(element) {
 
 }
 
-function preload_tags(event_id, element) {
+function preload_tags(tags_url, element) {
     if (element) {
         var $element = element;
     } else {
@@ -125,7 +105,7 @@ function preload_tags(event_id, element) {
     }
     $.ajax({
         type: 'GET',
-        url: '/events/' +event_id+ '/tag_list'
+        url: tags_url
     }).then(function (data) {
 
         data.forEach(add_tag);

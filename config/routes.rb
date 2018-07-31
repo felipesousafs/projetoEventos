@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :events do
-    end
+  end
   resources :inscriptions do
     resources :inscription_items
   end
@@ -26,6 +26,12 @@ Rails.application.routes.draw do
       sessions: 'users/sessions',
       registrations: 'users/registrations'
   }
+  devise_scope :user do
+
+    get 'users/:user_id/tag_list', to: 'users/registrations#tag_list', as: 'user_tag_list'
+
+  end
+
 
   root 'events#index'
 
