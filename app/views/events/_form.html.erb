@@ -4,7 +4,9 @@
 <%= simple_form_for(@event) do |f| %>
   <script>
       $(document).ready(function () {
-          preload_tags(<%=f.object.id %>, null);
+          <% if f.object.id %>
+            preload_tags('<%= event_tag_list_path(f.object.id) %>', null);
+          <% end %>
       });
   </script>
   <div class="box box-primary">
@@ -30,7 +32,7 @@
           <%= f.input :description %>
         </div>
         <div class="col-md-6">
-          <%= f.input 'tags_list', collection: ActsAsTaggableOn::Tag.all, input_html: { class: 'select2-field', 'data-endpoint': tags_path, multiple: 'multiple' }, as: :select %>
+          <%= f.input 'tags_list', collection: ActsAsTaggableOn::Tag.all, value_method: :name, input_html: {class: 'select2-field', multiple: 'multiple'}, as: :select %>
         </div>
       </div>
     </div>
@@ -45,49 +47,49 @@
     </ul>
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="stages">
-          <div class="box-body">
-            <ul id="stage_boxes" class="todo-list">
-              <%= f.simple_fields_for :stages do |b| %>
-                <%= render 'stage_fields', f: b %>
-              <% end %>
-            </ul>
-            <div class="box-footer clearfix no-border add_stage">
-              <%= link_to_add_association f, :stages, class: "btn btn-primary pull-right",
-                                          data: {'association-insertion-node': '#stage_boxes', 'association-insertion-method': 'append'} do %>
-                <i class='fa fa-plus'></i> Adicionar Etapa
-              <% end %>
-            </div>
+        <div class="box-body">
+          <ul id="stage_boxes" class="todo-list">
+            <%= f.simple_fields_for :stages do |b| %>
+              <%= render 'stage_fields', f: b %>
+            <% end %>
+          </ul>
+          <div class="box-footer clearfix no-border add_stage">
+            <%= link_to_add_association f, :stages, class: "btn btn-primary pull-right",
+                                        data: {'association-insertion-node': '#stage_boxes', 'association-insertion-method': 'append'} do %>
+              <i class='fa fa-plus'></i> Adicionar Etapa
+            <% end %>
           </div>
+        </div>
       </div>
       <div role="tabpanel" class="tab-pane" id="event_items">
-          <div class="box-body">
-            <ul id="event_item_boxes" class="todo-list">
-              <%= f.simple_fields_for :event_items do |b| %>
-                <%= render 'event_item_fields', f: b %>
-              <% end %>
-            </ul>
-            <div class="box-footer clearfix no-border add_event_item">
-              <%= link_to_add_association f, :event_items, class: "btn btn-primary pull-right",
-                                          data: {'association-insertion-node': '#event_item_boxes', 'association-insertion-method': 'append'} do %>
-                <i class='fa fa-plus'></i> Adicionar Atividade
-              <% end %>
-            </div>
+        <div class="box-body">
+          <ul id="event_item_boxes" class="todo-list">
+            <%= f.simple_fields_for :event_items do |b| %>
+              <%= render 'event_item_fields', f: b %>
+            <% end %>
+          </ul>
+          <div class="box-footer clearfix no-border add_event_item">
+            <%= link_to_add_association f, :event_items, class: "btn btn-primary pull-right",
+                                        data: {'association-insertion-node': '#event_item_boxes', 'association-insertion-method': 'append'} do %>
+              <i class='fa fa-plus'></i> Adicionar Atividade
+            <% end %>
           </div>
+        </div>
       </div>
       <div role="tabpanel" class="tab-pane" id="partnerships">
-          <div class="box-body">
-            <ul id="partnership_boxes" class="todo-list">
-              <%= f.simple_fields_for :partnerships do |b| %>
-                <%= render 'partnership_fields', f: b %>
-              <% end %>
-            </ul>
-            <div class="box-footer clearfix no-border add_partnership">
-              <%= link_to_add_association f, :partnerships, class: "btn btn-primary pull-right",
-                                          data: {'association-insertion-node': '#partnership_boxes', 'association-insertion-method': 'append'} do %>
-                <i class='fa fa-plus'></i> Adicionar Parceria
-              <% end %>
-            </div>
+        <div class="box-body">
+          <ul id="partnership_boxes" class="todo-list">
+            <%= f.simple_fields_for :partnerships do |b| %>
+              <%= render 'partnership_fields', f: b %>
+            <% end %>
+          </ul>
+          <div class="box-footer clearfix no-border add_partnership">
+            <%= link_to_add_association f, :partnerships, class: "btn btn-primary pull-right",
+                                        data: {'association-insertion-node': '#partnership_boxes', 'association-insertion-method': 'append'} do %>
+              <i class='fa fa-plus'></i> Adicionar Parceria
+            <% end %>
           </div>
+        </div>
       </div>
       <div role="tabpanel" class="tab-pane" id="coupoms">
         <div class="box-body">
