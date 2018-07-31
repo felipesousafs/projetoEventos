@@ -1,9 +1,16 @@
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <script>
+      $(document).ready(function () {
+          preload_tags('<%=user_tag_list_path(f.object.id) %>', null);
+      });
+  </script>
   <%= f.error_notification %>
   <div class="margin-bottom">
     <%= f.input :name, required: true, autofocus: true %>
 
     <%= f.input :email, required: true %>
+
+    <%= f.input 'tags_list', collection: ActsAsTaggableOn::Tag.all,value_method: :name, input_html: { class: 'select2-field', 'data-endpoint': tags_path, multiple: 'multiple' }, as: :select %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>

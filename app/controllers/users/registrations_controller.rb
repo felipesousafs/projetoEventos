@@ -4,15 +4,26 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
+  def tag_list
+    @user = User.find(params[:user_id])
+    respond_to do |format|
+      format.json { render json: @user.tags.map { |p| { id: p.id, name: p.name } } }
+    end
+  end
+
   # GET /resource/sign_up
   # def new
   #   super
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def save_tags
+    @user.add_tags(params)
+  end
+  def create
+    super
+    save_tags
+  end
 
   # GET /resource/edit
   # def edit
@@ -20,9 +31,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    super
+    save_tags
+  end
 
   # DELETE /resource
   # def destroy
@@ -42,12 +54,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :tags_list])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :tags_list])
   end
 
   # The path used after sign up.
