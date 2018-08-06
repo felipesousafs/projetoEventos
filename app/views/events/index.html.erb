@@ -1,12 +1,16 @@
 <%= content_for :full_box do %>opa
 <% end %>
 <% if @events.size == 0 %>
+  <%= params.inspect %>
+  <%= params[:search_content] %>
+  <%= params[:contains_tags].to_s %>
   <div class="alert alert-danger text-center" style="padding: 12px 10px 5px;">
     <h4><i class="fa fa-fw fa-exclamation-triangle"></i> Sem <%= Event.model_name.human.pluralize %> cadastradas</h4>
   </div>
 <% else %>
   <div class="box box-primary">
     <div class="box-body">
+      <%= params.inspect %>
       <table class="table table-striped">
         <thead>
         <tr>

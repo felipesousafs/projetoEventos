@@ -25,6 +25,9 @@
 //= require jquery.mask
 //= require chosen-jquery
 
+//= require wellcome
+//= require Chart
+
 //= require rails-ujs
 //= require_tree .
 

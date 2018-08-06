@@ -17,7 +17,7 @@
       <ul class="nav navbar-nav">
         <% if user_signed_in? %>
           <li class="dropdown user user-menu">
-            <%= link_to "#", class: "dropdown-toggle", data: { toggle: 'dropdown'}, 'aria-expanded': 'true' do %>
+            <%= link_to "#", class: "dropdown-toggle", data: {toggle: 'dropdown'}, 'aria-expanded': 'true' do %>
               <i class="fa fa-user"></i>
             <% end %>
             <ul class="dropdown-menu">
@@ -26,7 +26,7 @@
                 <%= image_tag "logo.png", class: "img-square mini-logo-top" %>
                 <p>
                   <%= current_user.email %>
-                  <small>Membro desde <%=l(current_user.created_at) %></small>
+                  <small>Membro desde <%= l(current_user.created_at) %></small>
                 </p>
               </li>
               <!-- Menu Footer-->
@@ -45,13 +45,13 @@
             </ul>
           </li>
         <% else %>
-        <li>
-          <%= link_to new_user_session_path, class: "toplink" do %>
-            <i class="fa fa-sign-in"></i>
-            Sign in
-          <% end %>
+          <li>
+            <%= link_to new_user_session_path, class: "toplink" do %>
+              <i class="fa fa-sign-in"></i>
+              Sign in
+            <% end %>
+          </li>
         <% end %>
-        </li>
       </ul>
     </div>
   </nav>
