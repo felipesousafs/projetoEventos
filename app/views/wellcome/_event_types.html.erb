@@ -1,0 +1,25 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title">Categorias de eventos</h3>
+
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+      </button>
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body" style="">
+    <table class="table table-bordered table-striped">
+      <tbody>
+      <% event_types.each do |event_type| %>
+        <tr>
+          <td>
+            <%= link_to event_type.name, events_by_type_path(event_type), teste: 'teste' %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <!-- /.box-body -->
+</div>
