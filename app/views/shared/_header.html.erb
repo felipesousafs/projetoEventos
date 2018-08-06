@@ -44,12 +44,13 @@
               </li>
             </ul>
           </li>
-        <% end %>
+        <% else %>
         <li>
-          <%= link_to "https://github.com/felipesousafs/projetoEventos", target: "_blank", class: "toplink" do %>
-            <%= image_tag "logo.png", class: "pull-right mini-logo-top" %>
-            Github
+          <%= link_to new_user_session_path, class: "toplink" do %>
+            <i class="fa fa-sign-in"></i>
+            Sign in
           <% end %>
+        <% end %>
         </li>
       </ul>
     </div>
