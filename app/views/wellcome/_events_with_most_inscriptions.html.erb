@@ -1,0 +1,37 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title">Eventos ativos mais populares (por número de inscritos) </h3>
+
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+      </button>
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body" style="">
+    <ul class="products-list product-list-in-box">
+      <li class="item">
+        <div class="product-info">
+            <span class="product-title">Evento
+              <span class="pull-right">Nº de Inscritos</span>
+            </span>
+        </div>
+      </li>
+      <% events.each do |event| %>
+        <li class="item">
+          <div class="product-info">
+            <a href="<%= event_path(event) %>" class="product-title"><%= event.name %>
+              <span class="badge bg-green pull-right" title="<%= Event.human_attribute_name('number_of_inscriptions', count: event.inscriptions.size) %>"> <%= event.inscriptions.size %> </span>
+            </a>
+            <span class="product-description"><%= event.event_type.name %></span>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <!-- /.box-body -->
+  <div class="box-footer text-center" style="">
+    <a href="<%= events_path %>" class="uppercase">Ver todos os eventos</a>
+  </div>
+  <!-- /.box-footer -->
+</div>

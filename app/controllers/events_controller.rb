@@ -5,6 +5,12 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     @events = Event.all
+    if params[:search_content] || params[:contains_tags].to_a.size > 1
+      @events = @events.filter(params.slice(:search_content, :contains_tags))
+    end
+    if params[:event_type_id]
+      @events = @events.where(event_type_id: params[:event_type_id])
+    end
   end
 
   # GET /events/1

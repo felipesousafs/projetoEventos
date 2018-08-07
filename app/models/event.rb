@@ -1,4 +1,25 @@
 class Event < ApplicationRecord
+  include Filterable
+
+  scope :contains_tags, -> (tags) do
+    tagged_with(tags, any: true)
+  end
+
+  scope :search_filter, -> (name) do
+    joins(:event_items, :institutions).where(
+        "events.name ILIKE ? OR events.description ILIKE ?
+        OR event_items.name ILIKE ? OR event_items.description ILIKE ?
+        OR institutions.name ILIKE ?",
+        "%#{name}%", "%#{name}%", "%#{name}%", "%#{name}%", "%#{name}%")
+  end
+
+  scope :most_popular_top, -> (limit) do
+    left_joins(:inscriptions)
+        .group(:id)
+        .order('COUNT(inscriptions.id) DESC')
+        .limit(limit)
+  end
+
   acts_as_taggable
 
   has_many :stages

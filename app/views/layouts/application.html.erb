@@ -31,7 +31,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <% if yield(:title_page).empty? %>
-        <% if ["index", "new", "create", "edit", "update", "show"].include?(action_name) %>
+        <% if ["index", "new", "create", "edit", "update", "show"].include?(action_name) && controller_name != 'wellcome' %>
           <%= render 'shared/title' %>
         <% end -%>
       <% else %>
