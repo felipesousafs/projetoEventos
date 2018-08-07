@@ -1,0 +1,50 @@
+<%= content_for :full_box do %>opa
+<% end %>
+
+<div class="row">
+  <div class="col-md-12 col-xs-12">
+    <div class="box info-box box-success">
+      <div class="box-header with-border">
+        <span class="bg-green label"><i class="fa fa-search"></i></span>
+        <h3 class="box-title">Buscar eventos</h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="box-body">
+        <%= simple_form_for '', url: (events_path), method: 'get' do |f| %>
+          <div class="row">
+            <div class="col-md-6">
+              <%= f.input 'search_content', as: :string, html5: true, label: "Busca por texto", required: false, hint: 'A busca é feita em nome, descrição, atividades, etc.' %>
+            </div>
+            <div class="col-md-6">
+              <%= f.input 'contains_tags', label: 'Busca por tags', collection: ActsAsTaggableOn::Tag.all, value_method: :name, input_html: {class: 'select2-field', multiple: 'multiple'}, as: :select, required: false, hint: 'Ex: informática, saúde, etc...' %>
+            </div>
+          </div>
+          <div class="row">
+            <%= f.input 'event_status', label: '(TODO)', as: :radio_buttons, collection: [['1', 'Inscrições Abertas'], ['0', 'Inscrições Encerradas']], label_method: :second, value_method: :first, wrapper_html: {class: 'col-md-3', disabled: true} %>
+          </div>
+          <%= f.submit "Pesquisar", class: 'btn btn-success' %>
+        <% end %>
+      </div>
+      <!-- /.box-footer -->
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12" id="events_with_more_inscriptions">
+    <%= render 'most_popular_event', event: @events.last %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4" id="events_with_more_inscriptions">
+    <%= render 'events_with_most_inscriptions', events: @events.most_popular_top(5) %>
+  </div>
+  <div class="col-md-4" id="events_with_more_inscriptions">
+    <%= render 'most_used_tags', tags: ActsAsTaggableOn::Tag.most_used(5).pluck(:name, :taggings_count).as_json %>
+  </div>
+  <div class="col-md-4" id="events_with_more_inscriptions">
+    <%= render 'event_types', event_types: @event_types %>
+  </div>
+</div>

@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   end
 
 
-  root 'events#index'
+  get '/events/type/:event_type_id', to: 'events#index', as: 'events_by_type'
+  root 'wellcome#index'
 
 end

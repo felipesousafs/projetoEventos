@@ -17,7 +17,7 @@
         <td width="20%"><strong><%= Event.human_attribute_name(:event_type) %>:</strong></td>
         <td width="30%"><%= @event.event_type.name %></td>
         <td width="20%"><strong><%= Event.human_attribute_name(:tags) %>:</strong></td>
-        <td width="30%"><%= @event.tags %></td>
+        <td width="30%"><%= @event.tags_list %></td>
       </tr>
       <tr>
         <td width="20%"><strong><%= Event.human_attribute_name(:description) %>:</strong></td>
@@ -31,6 +31,7 @@
     <li role="presentation" class="active"><a href="#stages" aria-controls="stages" role="tab" data-toggle="tab">Etapas</a></li>
     <li><a href="#event_items" data-toggle="tab">Atividades</a></li>
     <li><a href="#partnerships" data-toggle="tab">Parcerias</a></li>
+    <li><a href="#coupons" data-toggle="tab">Coupom</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -43,6 +44,9 @@
     </div>
     <div class="tab-pane" id="partnerships">
       <%= render 'events/partnerships_tab' %>
+    </div>
+    <div class="tab-pane" id="coupons">
+      <%= render 'events/coupom_tab' %>
     </div>
   </div>
   <!-- /.nav-tabs-custom -->

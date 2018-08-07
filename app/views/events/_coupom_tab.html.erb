@@ -1,0 +1,22 @@
+<div class="box-body no-padding">
+  <table class="table table-striped table-bordered" id="ic">
+    <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Valor</th>
+      <th>Tipo de Coupom</th>
+      <th>Validade</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @event.coupoms.each do |coupom| %>
+      <tr class="text-vertical ">
+        <td><%= coupom.key %></td>
+        <td><%= coupom.value %></td>
+        <td><%= coupom.coupom_type_id %></td>
+        <td><%= coupom.expiration %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

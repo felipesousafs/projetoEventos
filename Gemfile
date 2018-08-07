@@ -82,8 +82,12 @@ gem 'kaminari'
 # jQuery UI for the Rails asset pipeline
 gem 'jquery-ui-rails'
 
+# IONIC Icons
+gem 'font-ionicons-rails'
 
 # Gem para uso das Tags
 gem 'acts-as-taggable-on', '~> 6.0'
+
+# FIX BUG IN WINDOWS
 gem 'execjs'
 gem 'coffee-script-source', '1.8.0'
