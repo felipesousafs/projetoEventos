@@ -22,6 +22,8 @@ class Event < ApplicationRecord
 
   acts_as_taggable
 
+  validates :name, presence: true
+
   has_many :stages
   has_many :event_items, :dependent => :destroy
   has_many :partnerships
