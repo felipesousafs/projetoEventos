@@ -4,5 +4,7 @@ class Coupom < ApplicationRecord
 
   validates :expiration, presence: true
   validates :key, presence: true
+  validates :value, presence: true
+
   validates_numericality_of :value, greater_than: 0
 end
