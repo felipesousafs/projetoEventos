@@ -18,7 +18,7 @@
     <div class="box-body">
       <div class="row">
         <div class="col-md-6">
-          <%= f.input :name, required: true %>
+          <%= f.input :name %>
         </div>
         <div class="col-md-6">
           <%= f.association :event_type, input_html: {class: 'select2', 'data-endpoint': event_types_path} %>
