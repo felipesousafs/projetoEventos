@@ -23,6 +23,8 @@ class Event < ApplicationRecord
   acts_as_taggable
 
   validates :name, presence: true
+  validates :stages, presence: true
+  validates :event_items, presence: true
 
   has_many :stages
   has_many :event_items, :dependent => :destroy
