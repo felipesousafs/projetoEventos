@@ -44,6 +44,11 @@ class Event < ApplicationRecord
 
   has_many :moderators, :dependent => :destroy
   has_many :stages, :dependent => :destroy
+  validates :name, presence: true
+  validates :stages, presence: true
+  validates :event_items, presence: true
+
+  has_many :stages
   has_many :event_items, :dependent => :destroy
   has_many :partnerships, :dependent => :destroy
   has_many :institutions, through: :partnerships
