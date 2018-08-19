@@ -221,5 +221,11 @@ $(document).ready(function () {
         $('.collapse').collapse('hide');
         insertedItem.find('.collapse').last().collapse('show');
     });
+    $('#moderator_boxes').on('cocoon:after-insert', function (e, insertedItem) {
+        var $element = $(insertedItem.find('select'));
+        add_select2($element);
+        $('.collapse').collapse('hide');
+        insertedItem.find('.collapse').last().collapse('show');
+    });
 
 });
