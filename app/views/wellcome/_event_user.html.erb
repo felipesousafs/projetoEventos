@@ -11,10 +11,10 @@
    <div class="box-body" style="">
     <table class="table table-bordered table-striped">
       <tbody>
-      <% event.each do |events| %>
+      <% events.each do |event| %>
         <tr>
           <td>
-            <h6><%=events.name%></h6>
+            <h6><%=event.name%></h6>
           </td>
         </tr>
       <% end %>
