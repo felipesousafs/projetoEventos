@@ -34,7 +34,7 @@
 </div>
 <div class="row">
   <div class="col-md-12" id="events_with_more_inscriptions">
-    <%= render 'most_popular_event', event: @events.last %>
+    <%= render 'most_popular_event', event: @events.most_popular_top(1).first %>
   </div>
 </div>
 <div class="row">

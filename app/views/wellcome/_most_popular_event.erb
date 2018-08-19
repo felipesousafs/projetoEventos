@@ -3,44 +3,55 @@
   <div class="box-header with-border">
     <h3 class="box-title"><i class="fa fa-fw fa-calendar"></i> Evento mais popular (mais inscritos)</h3>
   </div>
-  <%= link_to event_path(event) do %>
+  <% if event.nil? %>
     <div class="widget-user-header bg-light-blue flat" title="CLique para visualizar o evento">
       <div class="widget-user-image">
         <%= image_tag "logo.png", alt: "Repositório no GitHub", class: "img-circle" %>
       </div>
       <!-- /.widget-user-image -->
-      <h3 class="widget-user-username"><%= event.name.camelize %></h3>
-      <h5 class="widget-user-desc"><%= event.event_type.name %></h5>
+      <h3 class="widget-user-username">Nenhum evento cadastrado</h3>
+      <h5 class="widget-user-desc"> &nbsp; </h5>
+    </div>
+  <% else %>
+    <%= link_to event_path(event) do %>
+      <div class="widget-user-header bg-light-blue flat" title="CLique para visualizar o evento">
+        <div class="widget-user-image">
+          <%= image_tag "logo.png", alt: "Repositório no GitHub", class: "img-circle" %>
+        </div>
+        <!-- /.widget-user-image -->
+        <h3 class="widget-user-username"><%= event.name.camelize %></h3>
+        <h5 class="widget-user-desc"><%= event.event_type.name %></h5>
+      </div>
+    <% end %>
+    <div class="box-footer no-padding">
+      <table class="table table-striped table-bordered">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-2 table-bordered">
+              <div><strong><p><%= Event.human_attribute_name(:user) %>:</p></strong></div>
+            </div>
+            <div class="col-md-4 table-bordered">
+              <div><p><%= event.user.name %></p></div>
+            </div>
+            <div class="col-md-2 table-bordered">
+              <div><strong><p><%= Event.human_attribute_name(:tags) %>:</p></strong></div>
+            </div>
+            <div class="col-md-4 table-bordered">
+              <div><p><%= event.tags_list %></p></div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-12 table-bordered no-padding">
+              <blockquote>
+                <strong><%= Event.human_attribute_name(:description) %></strong>
+                <p><%= event.description %></p>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </table>
     </div>
   <% end %>
-  <div class="box-footer no-padding">
-    <table class="table table-striped table-bordered">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="col-md-2 table-bordered">
-            <div><strong><p><%= Event.human_attribute_name(:user) %>:</p></strong></div>
-          </div>
-          <div class="col-md-4 table-bordered">
-            <div><p><%= event.user.name %></p></div>
-          </div>
-          <div class="col-md-2 table-bordered">
-            <div><strong><p><%= Event.human_attribute_name(:tags) %>:</p></strong></div>
-          </div>
-          <div class="col-md-4 table-bordered">
-            <div><p><%= event.tags_list %></p></div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="col-md-12 table-bordered no-padding">
-            <blockquote>
-              <strong><%= Event.human_attribute_name(:description) %></strong>
-              <p><%= event.description %></p>
-            </blockquote>
-          </div>
-        </div>
-      </div>
-    </table>
-  </div>
 </div>

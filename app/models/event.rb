@@ -19,6 +19,22 @@ class Event < ApplicationRecord
         .order('COUNT(inscriptions.id) DESC')
         .limit(limit)
   end
+  scope :is_not_satellite, -> do
+    where('events.event_id IS NULL')
+  end
+
+  scope :has_no_satellites, -> do
+    where.not(id: (where("events.event_id IS NOT NULL").pluck(:event_id)))
+  end
+
+  scope :managed_by, ->(user) do
+    where(user_id: user)
+  end
+
+  scope :without_event, ->(event_id) do
+    where.not(id: event_id)
+  end
+
 
   acts_as_taggable
 
@@ -31,6 +47,9 @@ class Event < ApplicationRecord
   has_one :event_item_type, through: :event_items
   belongs_to :event_type
   belongs_to :user
+
+  belongs_to :events, optional: true
+  has_many :children, class_name: 'Event', foreign_key: 'event_id'
 
   accepts_nested_attributes_for :event_items, allow_destroy: true
   accepts_nested_attributes_for :stages, allow_destroy: true
@@ -50,6 +69,12 @@ class Event < ApplicationRecord
 
   def tags_list
     tag_list.join(',')
+  end
+
+  def parent
+    if self.event_id
+      Event.find(self.event_id)
+    end
   end
 
 end
