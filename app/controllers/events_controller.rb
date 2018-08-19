@@ -22,6 +22,7 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @event.user = current_user
+    @inscription_stage = @event.stages.new(name: "Inscrições", description: "Período de inscrições")
   end
 
   def new_satellite
