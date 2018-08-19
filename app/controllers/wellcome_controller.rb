@@ -6,6 +6,9 @@ class WellcomeController < ApplicationController
   def index
   end
 
+  def dashboard
+  end
+
   def search_result
     @events = Event.filter(params.slice(:search_content))
   end
