@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @moderator.user %>
+</p>
+
+
+<%= link_to 'Edit', edit_event_moderator_path(@moderator.event, @moderator) %> |
+<%= link_to 'Back', event_moderators_path(@moderator.event) %>

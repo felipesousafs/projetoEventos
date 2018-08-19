@@ -1,0 +1,23 @@
+<h1>Listing moderators</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @moderators.each do |moderator| %>
+  <tr>
+    <td><%= moderator.user %></td>
+    <td><%= link_to 'Show', [moderator.event, moderator] %></td>
+    <td><%= link_to 'Edit', edit_event_moderator_path(moderator.event, moderator) %></td>
+    <td><%= link_to 'Destroy', [moderator.event, moderator], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Moderator', new_event_moderator_path(params[:event_id]) %>

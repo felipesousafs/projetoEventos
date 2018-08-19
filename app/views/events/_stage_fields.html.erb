@@ -1,16 +1,24 @@
 <li class="nested-fields stage" id="stage">
   <div onclick="toggle_collapse(this);" style="width: 100%;" id="open_close_collapse">
-    &nbsp; <a class='label label-warning pull-left abrir' id="abrir"> Mostrar/Ocultar  </a>
+    &nbsp; <a class='label label-warning pull-left abrir' id="abrir"> Mostrar/Ocultar </a>
   </div>
   <div class='fundo-branco collapse' id="collapse_stage">
     <div class="pull-right">
-      <%= link_to_remove_association f do %>
-        <i class='fa fa-trash-o btn btn-danger'> Remover</i>
+      <% unless f.object.name == "Inscrições" %>
+        <%= link_to_remove_association f do %>
+          <i class='fa fa-trash-o btn btn-danger'> Remover</i>
+        <% end %>
       <% end %>
     </div>
     <div class="row">
       <div class="col-md-4">
-        <%= f.input :name %>
+        <% if f.object.name == "Inscrições" %>
+          <%= f.label "Nome: " %>
+          <pre>Inscrições</pre>
+          <%= f.input :name, as: :hidden %>
+        <% else %>
+          <%= f.input :name %>
+        <% end %>
       </div>
       <div class="col-md-3">
         <%= f.input :date_start, html5: true, as: :date %>
@@ -21,7 +29,13 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <%= f.input :description, as: :text %>
+        <% if f.object.name == "Inscrições" %>
+          <%= f.label "Descrição: " %>
+          <pre>Período de inscrições</pre>
+          <%= f.input :description, as: :hidden %>
+        <% else %>
+          <%= f.input :description, as: :text %>
+        <% end %>
       </div>
     </div>
   </div>

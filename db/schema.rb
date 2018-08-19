@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180728022258) do
+
+ActiveRecord::Schema.define(version: 20180819004957) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +68,9 @@ ActiveRecord::Schema.define(version: 20180728022258) do
     t.json "tags"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "event_id"
+    t.boolean "is_principal", default: true
+    t.index ["event_id"], name: "index_events_on_event_id"
     t.index ["event_type_id"], name: "index_events_on_event_type_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
@@ -98,6 +103,15 @@ ActiveRecord::Schema.define(version: 20180728022258) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "moderators", force: :cascade do |t|
+    t.bigint "event_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_moderators_on_event_id"
+    t.index ["user_id"], name: "index_moderators_on_user_id"
   end
 
   create_table "partnerships", force: :cascade do |t|
@@ -195,12 +209,15 @@ ActiveRecord::Schema.define(version: 20180728022258) do
   add_foreign_key "event_items", "event_item_types"
   add_foreign_key "event_items", "events"
   add_foreign_key "events", "event_types"
+  add_foreign_key "events", "events"
   add_foreign_key "events", "users"
   add_foreign_key "inscription_items", "event_items"
   add_foreign_key "inscription_items", "inscriptions"
   add_foreign_key "inscriptions", "coupoms"
   add_foreign_key "inscriptions", "events"
   add_foreign_key "inscriptions", "users"
+  add_foreign_key "moderators", "events"
+  add_foreign_key "moderators", "users"
   add_foreign_key "partnerships", "events"
   add_foreign_key "partnerships", "institutions"
   add_foreign_key "stages", "events"

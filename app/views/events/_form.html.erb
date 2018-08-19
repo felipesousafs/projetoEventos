@@ -1,21 +1,26 @@
-<%= content_for :full_box do %>opa
-<% end %>
-
 <%= simple_form_for(@event) do |f| %>
+  <% @event.errors.each do |attribute, error| %>
+    <%= f.error_notification message: "#{attribute} #{error}" %>
+  <% end %>
   <script>
       $(document).ready(function () {
           <% if f.object.id %>
-            preload_tags('<%= event_tag_list_path(f.object.id) %>', null);
+          preload_tags('<%= event_tag_list_path(f.object.id) %>', null);
           <% end %>
       });
   </script>
   <div class="box box-primary">
     <div class="box-header with-border">
       <h3 class="box-title">
-        Dados do Evento
+        <% if @event.event_id.present? %>
+          Adicionar satélite ao evento <strong><%= @event.parent.name %></strong>
+        <% else %>
+          Dados do Evento
+        <% end %>
       </h3>
     </div>
     <div class="box-body">
+      <%= params.inspect %>
       <div class="row">
         <div class="col-md-6">
           <%= f.input :name %>
@@ -25,6 +30,9 @@
         </div>
         <div class="col-md-6">
           <%= f.association :user, as: :hidden %>
+          <% if @event.event_id.present? %>
+            <%= f.input :event_id, as: :hidden %>
+          <% end %>
         </div>
       </div>
       <div class="row">
@@ -44,6 +52,9 @@
       <li><a href="#event_items" data-toggle="tab">Atividades</a></li>
       <li><a href="#partnerships" data-toggle="tab">Parcerias</a></li>
       <li><a href="#coupoms" data-toggle="tab">Cupom</a></li>
+      <% if can? :manage, @event %>
+        <li><a href="#moderators" data-toggle="tab">Moderadores</a></li>
+      <% end %>
     </ul>
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="stages">
@@ -106,6 +117,23 @@
           </div>
         </div>
       </div>
+      <% if can? :manage, @event %>
+        <div role="tabpanel" class="tab-pane" id="moderators">
+          <div class="box-body">
+            <ul id="moderator_boxes" class="todo-list">
+              <%= f.simple_fields_for :moderators do |b| %>
+                <%= render 'moderator_fields', f: b %>
+              <% end %>
+            </ul>
+            <div class="box-footer clearfix no-border add_coupom">
+              <%= link_to_add_association f, :moderators, class: "btn btn-primary pull-right",
+                                          data: {'association-insertion-node': '#moderator_boxes', 'association-insertion-method': 'append'} do %>
+                <i class='fa fa-plus'></i> Adicionar Moderador
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
   <div class="box box-primary">
