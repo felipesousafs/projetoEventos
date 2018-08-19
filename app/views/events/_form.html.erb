@@ -1,4 +1,7 @@
 <%= simple_form_for(@event) do |f| %>
+  <% @event.errors.each do |attribute, error| %>
+    <%= f.error_notification message: "#{attribute} #{error}" %>
+  <% end %>
   <script>
       $(document).ready(function () {
           <% if f.object.id %>
@@ -48,6 +51,9 @@
       <li><a href="#event_items" data-toggle="tab">Atividades</a></li>
       <li><a href="#partnerships" data-toggle="tab">Parcerias</a></li>
       <li><a href="#coupoms" data-toggle="tab">Cupom</a></li>
+      <% if can? :manage, @event %>
+        <li><a href="#moderators" data-toggle="tab">Moderadores</a></li>
+      <% end %>
     </ul>
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="stages">
@@ -110,6 +116,23 @@
           </div>
         </div>
       </div>
+      <% if can? :manage, @event %>
+        <div role="tabpanel" class="tab-pane" id="moderators">
+          <div class="box-body">
+            <ul id="moderator_boxes" class="todo-list">
+              <%= f.simple_fields_for :moderators do |b| %>
+                <%= render 'moderator_fields', f: b %>
+              <% end %>
+            </ul>
+            <div class="box-footer clearfix no-border add_coupom">
+              <%= link_to_add_association f, :moderators, class: "btn btn-primary pull-right",
+                                          data: {'association-insertion-node': '#moderator_boxes', 'association-insertion-method': 'append'} do %>
+                <i class='fa fa-plus'></i> Adicionar Moderador
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
   <div class="box box-primary">

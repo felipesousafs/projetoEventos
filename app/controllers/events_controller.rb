@@ -29,6 +29,7 @@ class EventsController < ApplicationController
     @event.user = current_user
     set_parent
     @events = Event.managed_by(current_user.id).is_not_satellite.without_event(@event.parent.id).has_no_satellites
+    @events = @events.uniq
   end
 
   # GET /events/1/edit
@@ -42,6 +43,21 @@ class EventsController < ApplicationController
   def set_parent
     if params[:parent_id].present?
       @event.event_id = params[:parent_id]
+    end
+  end
+
+  def add_moderator
+    if params[:event][:user_id].present?
+      moderator = Moderator.new(event_id: params[:event_id], user_id: params[:event][:user_id])
+      respond_to do |format|
+        if moderator.save!
+          format.html {redirect_to event_path(params[:event_id]), notice: 'Moderador adicionado com sucesso.'}
+        else
+          format.html {redirect_to event_path(params[:event_id]), alert: 'Falha ao adicionar moderador.'}
+        end
+      end
+    else
+      redirect_to event_path(params[:event_id]), alert: "Erro ao processar sua solicitação. Usuário não foi selecionado."
     end
   end
 
@@ -69,7 +85,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     respond_to do |format|
-      if @event.save!
+      if @event.save
         save_tags
         format.html {redirect_to @event, notice: 'Event was successfully created.'}
         format.json {render :show, status: :created, location: @event}
@@ -126,7 +142,8 @@ class EventsController < ApplicationController
                                   event_items_attributes: [:id, :name, :description, :value, :event_item_type_id, :_destroy],
                                   stages_attributes: [:id, :name, :description, :date_start, :date_end, :_destroy],
                                   partnerships_attributes: [:id, :name, :event_id, :institution_id, :_destroy],
-                                  children_attributes: [:child_ids, :_destroy]
+                                  children_attributes: [:child_ids, :_destroy],
+                                  moderators_attributes: [:id, :event_id, :user_id, :_destroy]
     )
   end
 end

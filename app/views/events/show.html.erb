@@ -40,6 +40,7 @@
     <li><a href="#event_items" data-toggle="tab">Atividades</a></li>
     <li><a href="#partnerships" data-toggle="tab">Parcerias</a></li>
     <li><a href="#coupons" data-toggle="tab">Coupom</a></li>
+    <li><a href="#moderators" data-toggle="tab">Moderadores</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -56,6 +57,9 @@
     <div class="tab-pane" id="coupons">
       <%= render 'events/coupom_tab' %>
     </div>
+    <div class="tab-pane" id="moderators">
+      <%= render 'events/moderators_tab' %>
+    </div>
   </div>
   <!-- /.nav-tabs-custom -->
 </div>
@@ -63,7 +67,8 @@
   <div class="box box-primary">
     <div class="box-header with-border">
       <h2 class="box-title"><i class="fa fa-fw fa-moon-o"></i>Eventos satélites &nbsp;
-      </h2> <%= link_to "Adicionar evento satélite", new_satellite_path(@event), class: 'btn btn-primary btn-xs' %>
+      </h2>
+      <%= link_to "Adicionar evento satélite", new_satellite_path(@event), class: 'btn btn-primary btn-xs' %>
     </div>
     <div class="box-body">
       <% if @event.children.empty? %>
