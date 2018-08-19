@@ -1,0 +1,32 @@
+<%= content_for :full_box do %>opa
+<% end %>
+
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title">
+      Como deseja adicionar o evento satélite?
+    </h3>
+  </div>
+  <div class="box-body">
+    <%= link_to "Criando novo evento", "?", class: "btn btn-success flat btn-sm" %>
+    ou
+    <%= link_to "Selecionando um evento previamente criado", "?p=select", class: "btn btn-primary flat btn-sm" %>
+  </div>
+</div>
+<% if params[:p] %>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        Selecione o evento
+      </h3>
+    </div>
+    <div class="box-body">
+      <%= simple_form_for @event, url: new_satellite_from_event_path(@event.parent) do |f| %>
+        <%= f.input 'event_id', collection: @events, input_html: { class: 'select2'}, required: true %>
+      <%= f.submit "Confirmar", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <%= render 'form', event: @event %>
+<% end %>
