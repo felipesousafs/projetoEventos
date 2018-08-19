@@ -24,6 +24,13 @@ class EventsController < ApplicationController
     @event.user = current_user
   end
 
+  def new_satellite
+    @event = Event.new
+    @event.user = current_user
+    set_parent
+    @events = Event.managed_by(current_user.id).is_not_satellite.without_event(@event.parent.id).has_no_satellites
+  end
+
   # GET /events/1/edit
   def edit
   end
@@ -31,6 +38,32 @@ class EventsController < ApplicationController
   def save_tags
     @event.add_tags(params)
   end
+
+  def set_parent
+    if params[:parent_id].present?
+      @event.event_id = params[:parent_id]
+    end
+  end
+
+  def satellite_from_existing_event
+    @event = Event.find(params[:parent_id])
+    if params[:event][:event_id].present?
+      @event_satellite = Event.find(params[:event][:event_id])
+      @event_satellite.event_id = @event.id
+      respond_to do |format|
+        if @event_satellite.save
+          format.html {redirect_to @event, notice: 'Evento Satélite adicionado com sucesso.'}
+          format.json {render :show, status: :created, location: @event}
+        else
+          format.html {render :new}
+          format.json {render json: @event.errors, status: :unprocessable_entity}
+        end
+      end
+    else
+      redirect_to events_path
+    end
+  end
+
   # POST /events
   # POST /events.json
   def create
@@ -75,7 +108,7 @@ class EventsController < ApplicationController
   def tag_list
     @event = Event.find(params[:event_id])
     respond_to do |format|
-      format.json { render json: @event.tags.map { |p| { id: p.id, name: p.name } } }
+      format.json {render json: @event.tags.map {|p| {id: p.id, name: p.name}}}
     end
   end
 
@@ -88,11 +121,12 @@ class EventsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
-    params.require(:event).permit(:name, :description, :event_type_id, :user_id, :tag_list, :tags_list,
+    params.require(:event).permit(:name, :description, :event_id, :event_type_id, :user_id, :tag_list, :tags_list,
                                   coupoms_attributes: [:id, :value, :key, :expiration, :event_id, :coupom_type_id, :used, :_destroy],
                                   event_items_attributes: [:id, :name, :description, :value, :event_item_type_id, :_destroy],
                                   stages_attributes: [:id, :name, :description, :date_start, :date_end, :_destroy],
                                   partnerships_attributes: [:id, :name, :event_id, :institution_id, :_destroy],
+                                  children_attributes: [:child_ids, :_destroy]
     )
   end
 end
