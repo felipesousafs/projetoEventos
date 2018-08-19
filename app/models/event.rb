@@ -31,6 +31,10 @@ class Event < ApplicationRecord
     where(user_id: user)
   end
 
+  scope :with_moderator, ->(user) do
+    where(user_id: user)
+  end
+
   scope :without_event, ->(event_id) do
     where.not(id: event_id)
   end
@@ -38,16 +42,18 @@ class Event < ApplicationRecord
 
   acts_as_taggable
 
+  has_many :moderators, :dependent => :destroy
+  has_many :stages, :dependent => :destroy
   validates :name, presence: true
   validates :stages, presence: true
   validates :event_items, presence: true
 
   has_many :stages
   has_many :event_items, :dependent => :destroy
-  has_many :partnerships
+  has_many :partnerships, :dependent => :destroy
   has_many :institutions, through: :partnerships
-  has_many :inscriptions
-  has_many :coupoms
+  has_many :inscriptions, :dependent => :destroy
+  has_many :coupoms, :dependent => :destroy
   has_one :event_item_type, through: :event_items
   belongs_to :event_type
   belongs_to :user
@@ -59,6 +65,7 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :stages, allow_destroy: true
   accepts_nested_attributes_for :partnerships, allow_destroy: true
   accepts_nested_attributes_for :coupoms, allow_destroy: true
+  accepts_nested_attributes_for :moderators, allow_destroy: true
 
   validates_associated :event_items
   validates_associated :stages

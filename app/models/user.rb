@@ -2,7 +2,11 @@ class User < ApplicationRecord
   rolify
   acts_as_taggable # Alias for acts_as_taggable_on :tags
   has_many :inscriptions
+  has_many :moderators
 
+  scope :can_be_moderator_of_the_event, ->(event_id) do
+    User.where.not(id: Moderator.where(event_id: event_id).pluck(:user_id)).where.not(id: Event.find(event_id).user_id)
+  end
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
