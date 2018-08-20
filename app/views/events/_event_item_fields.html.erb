@@ -21,6 +21,11 @@
         <%= f.association :event_item_type %>
       </div>
       <div class="col-md-5">
+        <%= f.association :location, label_method: :complete_location, input_html: {class: 'select2'} %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10">
         <%= f.input :description %>
       </div>
     </div>
