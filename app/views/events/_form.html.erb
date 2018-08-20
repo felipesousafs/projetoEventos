@@ -25,8 +25,11 @@
         <div class="col-md-6">
           <%= f.input :name %>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
           <%= f.association :event_type, input_html: {class: 'select2', 'data-endpoint': event_types_path} %>
+        </div>
+        <div class="col-md-3">
+          <%= f.association :location, label_method: :complete_location, input_html: {class: 'select2'} %>
         </div>
         <div class="col-md-6">
           <%= f.association :user, as: :hidden %>
