@@ -41,6 +41,7 @@ Rails.application.routes.draw do
 
 
   get '/events/type/:event_type_id', to: 'events#index', as: 'events_by_type'
+  get '/wellcome/dashboard_user/:user_id', to: 'wellcome#dashboard_user', as: 'dashboard_user'
   root 'wellcome#index'
 
 end
