@@ -3,6 +3,7 @@
     <thead>
     <tr>
       <th>Nome</th>
+      <th>Local</th>
       <th>Valor</th>
       <th>Tipo de atividade</th>
       <th>Descrição</th>
@@ -12,6 +13,7 @@
     <% @event.event_items.each do |item| %>
       <tr class="text-vertical ">
         <td><%= item.name %></td>
+        <td><%= item.location.complete_location %></td>
         <td><%= item.value %></td>
         <td><%= item.event_item_type.name %></td>
         <td><p><%= item.description %></p></td>

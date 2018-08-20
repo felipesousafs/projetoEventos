@@ -17,14 +17,18 @@
       <tr>
         <td width="20%"><strong><%= Event.human_attribute_name(:name) %>:</strong></td>
         <td width="30%"><%= @event.name %></td>
-        <td width="20%"><strong><%= Event.human_attribute_name(:user) %>:</strong></td>
-        <td width="30%"><%= @event.user.name %></td>
+        <td width="20%"><strong><%= Event.human_attribute_name(:location) %>:</strong></td>
+        <td width="30%"><%= @event.location.complete_location %></td>
       </tr>
       <tr>
         <td width="20%"><strong><%= Event.human_attribute_name(:event_type) %>:</strong></td>
         <td width="30%"><%= @event.event_type.name %></td>
+        <td width="20%"><strong><%= Event.human_attribute_name(:user) %>:</strong></td>
+        <td width="30%"><%= @event.user.name %></td>
+      </tr>
+      <tr>
         <td width="20%"><strong><%= Event.human_attribute_name(:tags) %>:</strong></td>
-        <td width="30%"><%= @event.tags_list %></td>
+        <td width="20%" colspan="3"><%= @event.tags_list %></td>
       </tr>
       <tr>
         <td width="20%"><strong><%= Event.human_attribute_name(:description) %>:</strong></td>
