@@ -8,6 +8,16 @@ class Inscription < ApplicationRecord
 
   accepts_nested_attributes_for :inscription_items, allow_destroy: true
   validates_associated :inscription_items
+  validate :check_current_user_ir_not_the_owner
+
+  def check_current_user_ir_not_the_owner
+    if self.user_id == self.event.user_id
+      errors.add(:base, "Nao eh possivel se inscrever")
+    end
+  end
+  validates :user_id, :uniqueness => { :scope => :event_id,
+                                    :message => "Voce já está inscrito nesse evento" }
+
 
   def add_event_item(ids)
     ids.each do |id|
@@ -27,7 +37,7 @@ class Inscription < ApplicationRecord
   def valor_total
     if coupom
       if coupom.value > 0
-        valor = valor_sem_desconto - (valor_sem_desconto*coupom.value/100.0)
+        valor = valor_sem_desconto - (valor_sem_desconto * coupom.value / 100.0)
       else
         valor_sem_desconto
       end
