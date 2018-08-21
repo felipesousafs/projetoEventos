@@ -12,7 +12,8 @@ class Ability
         can [:edit, :update], User, id: user.id
         can [:new, :create], :all
         can :manage, Event, user: user
-
+        can [:edit, :update], Event, id: Event.joins(:moderators).where("moderators.user_id = #{user.id}").pluck(:id)
+        can [:new, :create], Location
       end
     else
       can :read, Event
