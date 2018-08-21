@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180821220443) do
+ActiveRecord::Schema.define(version: 20180821233323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,6 +140,17 @@ ActiveRecord::Schema.define(version: 20180821220443) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "responsibles", force: :cascade do |t|
+    t.string "name"
+    t.bigint "event_item_id"
+    t.text "description"
+    t.bigint "responsibility_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_item_id"], name: "index_responsibles_on_event_item_id"
+    t.index ["responsibility_type_id"], name: "index_responsibles_on_responsibility_type_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -239,5 +250,7 @@ ActiveRecord::Schema.define(version: 20180821220443) do
   add_foreign_key "moderators", "users"
   add_foreign_key "partnerships", "events"
   add_foreign_key "partnerships", "institutions"
+  add_foreign_key "responsibles", "event_items"
+  add_foreign_key "responsibles", "responsibility_types"
   add_foreign_key "stages", "events"
 end

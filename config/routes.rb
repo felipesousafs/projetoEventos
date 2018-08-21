@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :responsibibles
+  resources :responsibles
   resources :responsibility_types
   resources :locations
   resources :events do
