@@ -2,7 +2,7 @@ class User < ApplicationRecord
   rolify
   acts_as_taggable # Alias for acts_as_taggable_on :tags
   has_many :inscriptions
-
+  has_many :events
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

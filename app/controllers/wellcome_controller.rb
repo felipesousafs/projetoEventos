@@ -7,9 +7,9 @@ class WellcomeController < ApplicationController
   end
 
   def dashboard_user
-    @user = User.find(params[:user_id])
-    @events=Event.all
-    @inscription=Inscription.all
+    @user = User.find(current_user.id)
+    @events=@user.events
+    @inscriptions=@user.inscriptions
   end
 
   def search_result
