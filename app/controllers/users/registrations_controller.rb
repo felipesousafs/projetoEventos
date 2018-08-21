@@ -11,6 +11,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def teste_user
+  end
   # GET /resource/sign_up
   # def new
   #   super
