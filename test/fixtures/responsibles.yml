@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  event_item: one
+  description: MyText
+  responsibility_type: one
+
+two:
+  name: MyString
+  event_item: two
+  description: MyText
+  responsibility_type: two
