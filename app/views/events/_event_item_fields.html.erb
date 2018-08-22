@@ -41,5 +41,20 @@
         <%= f.input :description %>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-11">
+        <ul id="responsible_boxes" class="todo-list">
+          <%= f.simple_fields_for :responsibles do |b| %>
+            <%= render 'responsible_fields', f: b %>
+          <% end %>
+        </ul>
+        <div class="box-footer clearfix no-border add_responsible">
+          <%= link_to_add_association f, :responsibles, class: "btn btn-primary pull-right",
+                                      data: {'association-insertion-node': '#responsible_boxes', 'association-insertion-method': 'append'} do %>
+            <i class='fa fa-plus'></i> Adicionar Responsável
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </li>

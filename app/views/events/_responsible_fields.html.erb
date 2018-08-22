@@ -1,0 +1,38 @@
+<li class="nested-fields responsible accordion" id="responsible">
+  <div onclick="toggle_collapse(this);" style="width: 100%;">
+    &nbsp;<a class='label label-warning pull-left abrir' id="abrir"> Mostrar/Ocultar </a>
+  </div>
+  <div class='fundo-branco collapse' id="collapse">
+    <div class="pull-right">
+      <%= link_to_remove_association f do %>
+        <i class='fa fa-trash-o btn btn-danger'> Remover</i>
+      <% end %>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <%= f.input :name %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :description %>
+      </div>
+      <div class="col-md-3">
+        <%= f.association :responsibility_type %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-11">
+        <ul id="item_boxes" class="todo-list">
+          <%= f.simple_fields_for :items do |b| %>
+            <%= render 'item_fields', f: b %>
+          <% end %>
+        </ul>
+        <div class="box-footer clearfix no-border add_item">
+          <%= link_to_add_association f, :items, class: "btn btn-primary pull-right",
+                                      data: {'association-insertion-node': '#item_boxes', 'association-insertion-method': 'append'} do %>
+            <i class='fa fa-plus'></i> Adicionar Item
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>

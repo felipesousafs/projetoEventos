@@ -1,0 +1,17 @@
+<li class="nested-fields item" id="item">
+  <div class='fundo-branco'>
+    <div class="pull-right">
+      <%= link_to_remove_association f do %>
+        <i class='fa fa-trash-o btn btn-danger'> Remover</i>
+      <% end %>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <%= f.input :attr_name %>
+      </div>
+      <div class="col-md-5">
+        <%= f.input :attr_value %>
+      </div>
+    </div>
+  </div>
+</li>
