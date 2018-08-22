@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @responsible.name %>
+</p>
+
+<p>
+  <strong>Event item:</strong>
+  <%= @responsible.event_item %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @responsible.description %>
+</p>
+
+<p>
+  <strong>Responsibility type:</strong>
+  <%= @responsible.responsibility_type %>
+</p>
+
+<%= link_to 'Edit', edit_responsible_path(@responsible) %> |
+<%= link_to 'Back', responsibles_path %>

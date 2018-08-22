@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :items
+  resources :responsibles
+  resources :responsibility_types
   resources :locations
   resources :events do
     resources :moderators
