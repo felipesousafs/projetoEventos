@@ -1723,7 +1723,7 @@
    padding: 10px;
    position: relative;
  }
- .box-header.zwith-border {
+ .box-header.with-border {
    border-bottom: 1px solid #f4f4f4;
  }
  .collapsed-box .box-header.with-border {
