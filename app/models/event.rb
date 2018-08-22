@@ -71,6 +71,7 @@ class Event < ApplicationRecord
 
   validates_associated :event_items
   validates_associated :stages
+  validate :check_event_item_concomitance
 
   before_validation :check_event_items_location
 
@@ -94,6 +95,35 @@ class Event < ApplicationRecord
   def check_event_items_location
     self.event_items.each do |item|
       item.check_if_location_is_present
+    end
+  end
+
+
+  def check_event_item_concomitance
+    has_error = false
+    items = self.event_items
+    items.each do |item|
+      unless item.permit_concomitance
+        items.each do |it|
+          if it.id != item.id
+            if it.start_at.between?(item.start_at, item.end_at)
+                has_error = true
+            end
+            if it.end_at.between?(item.start_at, item.end_at)
+              has_error = true
+            end
+            if item.end_at.between?(it.start_at, it.end_at)
+              has_error = true
+            end
+            if item.end_at.between?(it.start_at, it.end_at)
+              has_error = true
+            end
+          end
+        end
+      end
+    end
+    if has_error
+      errors.add("", "Conflito de horário com atividade que não permite concomitância.")
     end
   end
 

@@ -91,3 +91,6 @@ gem 'acts-as-taggable-on', '~> 6.0'
 # FIX BUG IN WINDOWS
 gem 'execjs'
 gem 'coffee-script-source', '1.8.0'
+
+# Working with datetime
+gem 'momentjs-rails', '>= 2.9.0'

@@ -49,6 +49,10 @@ ActiveRecord::Schema.define(version: 20180822003447) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "location_id"
+    t.boolean "permit_concomitance", default: true
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.boolean "is_required", default: false
     t.index ["event_id"], name: "index_event_items_on_event_id"
     t.index ["event_item_type_id"], name: "index_event_items_on_event_item_type_id"
     t.index ["location_id"], name: "index_event_items_on_location_id"
