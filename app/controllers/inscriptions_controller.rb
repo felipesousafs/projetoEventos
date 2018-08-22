@@ -34,7 +34,7 @@ class InscriptionsController < ApplicationController
 
     respond_to do |format|
       if @inscription.save
-        format.html { redirect_to @inscription, notice: 'Inscription was successfully created.' }
+        format.html { redirect_to @inscription, notice: 'Inscrição realizada com sucesso.' }
         format.json { render :show, status: :created, location: @inscription }
       else
         format.html { render :new }
@@ -62,7 +62,7 @@ class InscriptionsController < ApplicationController
   def destroy
     @inscription.destroy
     respond_to do |format|
-      format.html { redirect_to inscriptions_url, notice: 'Inscription was successfully destroyed.' }
+      format.html { redirect_to events_url, notice: 'Inscrição cancelada com sucesso.' }
       format.json { head :no_content }
     end
   end

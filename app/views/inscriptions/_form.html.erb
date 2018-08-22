@@ -58,7 +58,12 @@
             <td><%= item.event_item_type.name %></td>
             <td><p><%= item.description %></p></td>
             <td class="text-center">
-              <%= check_box_tag 'selected_items[]', item.id %>
+              <% if item.is_required %>
+                <%= check_box_tag 'selected_items[]', item.id, true, hidden: true %>
+                <strong>Obrigatório</strong>
+              <% else %>
+                <%= check_box_tag 'selected_items[]', item.id %>
+              <% end %>
             </td>
           </tr>
         <% end %>
