@@ -25,6 +25,9 @@
 //= require jquery.mask
 //= require chosen-jquery
 
+//= require moment
+//= require bootstrap-datetimepicker
+
 //= require wellcome
 //= require Chart
 
@@ -32,7 +35,6 @@
 //= require_tree .
 
 function select_item(link) {
-    console.log(link);
     val = $(link).parent().find("input").val()
     if (val == 'true') {
         $(link).parent().find("input").val('false');
@@ -83,8 +85,6 @@ function add_select_2_field(element) {
 
     });
     $element.on("select2:select", function (e) {
-        console.log("select2:select", e.params);
-        console.log("select2:select", e.params.data['text']);
         // $.ajax({
         //     type: "POST",
         //     url: $element.data('endpoint')
@@ -112,12 +112,13 @@ function preload_tags(tags_url, element) {
     }).then(function (data) {
 
         data.forEach(add_tag);
+
         function add_tag(value, index, ar) {
             // create the option and append to Select2
-            console.log("Data name: ", value);
             var option = new Option(value.name, value.name, true, true);
             $element.append(option).trigger('change');
         }
+
         // manually trigger the `select2:select` event
         $element.trigger({
             type: 'select2:select',
@@ -163,6 +164,20 @@ function add_chosen(element) {
     });
 }
 
+function add_datetimepicker(element) {
+    var $element;
+    if (element) {
+        $element = element;
+    } else {
+        $element = $(".form_datetime");
+    }
+    console.log("datetimepicker: ", $element);
+    $element.datetimepicker({
+        format: 'dd-mm-yyyy hh:ii',
+        pickerPosition: "bottom-left"
+    });
+}
+
 $(document).ready(function () {
     $('input[id$=cpf]').mask('000.000.000-00');
 
@@ -171,6 +186,7 @@ $(document).ready(function () {
     add_select2();
     add_select_2_field();
     add_chosen();
+    add_datetimepicker();
 
     $('.datatables').DataTable({
         paging: false,
@@ -214,6 +230,8 @@ $(document).ready(function () {
         insertedItem.find('.collapse').last().collapse('show');
     });
     $('#event_item_boxes').on('cocoon:after-insert', function (e, insertedItem) {
+        var $element = $(insertedItem.find('.form_datetime'));
+        add_datetimepicker($element);
         $('.collapse').collapse('hide');
         insertedItem.find('.collapse').last().collapse('show');
     });
