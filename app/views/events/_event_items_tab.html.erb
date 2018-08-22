@@ -12,7 +12,7 @@
     <tbody>
     <% @event.event_items.each do |item| %>
       <tr class="text-vertical ">
-        <td><%= item.name %></td>
+        <td><%= link_to item.name, event_event_item_path(@event, item) %></td>
         <td><%= item.location.complete_location %></td>
         <td><%= item.value %></td>
         <td><%= item.event_item_type.name %></td>
