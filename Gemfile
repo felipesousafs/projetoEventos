@@ -94,3 +94,6 @@ gem 'coffee-script-source', '1.8.0'
 
 # Working with datetime
 gem 'momentjs-rails', '>= 2.9.0'
+
+#Decorator
+gem 'draper'
