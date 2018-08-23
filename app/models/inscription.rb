@@ -51,16 +51,4 @@ class Inscription < ApplicationRecord
     end
   end
 
-  def status_do_pagamento
-    self.paid ? "Aprovado em #{self.paid_at}" : 'Pendente'
-  end
-
-  def cumpom_utilizado
-    self.coupom ? coupom.key : 'Nenhum'
-  end
-
-  def total_value
-    inscription_items.sum(:value)
-  end
-
 end
