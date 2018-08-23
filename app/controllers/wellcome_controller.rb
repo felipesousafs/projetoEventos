@@ -8,8 +8,8 @@ class WellcomeController < ApplicationController
 
   def dashboard_user
     @user = User.find(current_user.id)
-    @events=@user.events
-    @inscriptions=@user.inscriptions
+    @events = @user.events
+    @inscriptions = @user.inscriptions
   end
 
   def search_result
