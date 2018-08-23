@@ -64,4 +64,39 @@
       <% end %>
     </table>
   </div>
+
+  <div class="box box-primary">
+  <div class="box-header with-border">
+    <h2 class="box-title">
+      <i class="fa fa-fw fa-list"></i> Inscritos
+    </h2>
+  </div>
+  <div class="box-body">
+    <table class="table table-striped">
+      <thead>
+      <td>
+        <th>
+          Nome
+        </th>
+        <th>
+          Email
+        </th>
+      </td>
+      </thead>
+      
+      <% @event_item.inscription_items.each do |inscription_activity| %>
+        <tbody>
+        <td>
+          <tr>
+            <%= inscription_activity.inscription.user.name %>
+          </tr>
+          <tr>
+            <%= inscription_activity.inscription.user.email %>
+          </tr>
+        </td>
+        </tbody>
+      <% end %>
+    </table>
+  </div>
+
 </div>
