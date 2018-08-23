@@ -20,7 +20,7 @@
     </div>
     <div class="box-body">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <%= f.label 'Evento' %>
           <pre><strong><%= @inscription.event.event_type.name %></strong> - <%= @inscription.event.name %></pre>
         </div>
@@ -34,6 +34,12 @@
         <div class="col-md-6">
           <%= text_field_tag :coupom_key, '', class: 'col-md-3' %>
         </div>
+        <% if @inscription.event.has_auto_coupom? %>
+          <div class="col-md-5">
+            <%= f.label 'Promoção ativa: ' %>
+            <%= "Desconto de #{@inscription.event.auto_coupom.first.value}%" %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

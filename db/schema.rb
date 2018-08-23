@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180822140945) do
+ActiveRecord::Schema.define(version: 20180823125138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20180822140945) do
     t.bigint "event_id"
     t.bigint "coupom_type_id"
     t.boolean "used", default: false
+    t.boolean "is_automatic", default: false
     t.index ["coupom_type_id"], name: "index_coupoms_on_coupom_type_id"
     t.index ["event_id"], name: "index_coupoms_on_event_id"
   end

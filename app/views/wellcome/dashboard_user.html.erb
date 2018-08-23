@@ -58,7 +58,7 @@
        <% @inscriptions.each do |inscription| %>
          <tr>
            <td><%= inscription.event.name %></td>
-           <td><%= "COLOCAR VALOR AQUI" %></td>
+           <td><%= "R$ #{inscription.total_value}" %></td>
            <td><span class="label <%= inscription.paid ? 'label-success' : 'label-warning' %>"><%= inscription.status_do_pagamento %></span></td>
            <td><%= link_to "Ver detalhes", inscription %></td>
          </tr>
