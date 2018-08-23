@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Attr name:</strong>
+  <%= @item.attr_name %>
+</p>
+
+<p>
+  <strong>Attr value:</strong>
+  <%= @item.attr_value %>
+</p>
+
+<p>
+  <strong>Responsible:</strong>
+  <%= @item.responsible %>
+</p>
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>

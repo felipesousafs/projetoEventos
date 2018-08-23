@@ -47,8 +47,9 @@ class Event < ApplicationRecord
   validates :name, presence: true
   validates :stages, presence: true
   validates :event_items, presence: true
+  validates :location, presence: true
 
-  has_many :stages
+  has_many :stages, :dependent => :destroy
   has_many :event_items, :dependent => :destroy
   has_many :partnerships, :dependent => :destroy
   has_many :institutions, through: :partnerships
@@ -57,6 +58,7 @@ class Event < ApplicationRecord
   has_one :event_item_type, through: :event_items
   belongs_to :event_type
   belongs_to :user
+  belongs_to :location
 
   belongs_to :events, optional: true
   has_many :children, class_name: 'Event', foreign_key: 'event_id'
@@ -69,7 +71,9 @@ class Event < ApplicationRecord
 
   validates_associated :event_items
   validates_associated :stages
+  validate :check_event_item_concomitance
 
+  before_validation :check_event_items_location
 
   def add_tags(params)
     list_of_tags = params[:event][:tags_list].join(',')
@@ -85,6 +89,55 @@ class Event < ApplicationRecord
   def parent
     if self.event_id
       Event.find(self.event_id)
+    end
+  end
+
+  def children_or_parent
+    if self.event_id
+      Event.where(id: self.event_id)
+    else
+      self.children
+    end
+  end
+
+  def check_event_items_location
+    self.event_items.each do |item|
+      item.check_if_location_is_present
+    end
+  end
+
+  def auto_coupom
+    self.coupoms.where("coupoms.expiration >= ?", Date.today).where(is_automatic: true)
+  end
+  def has_auto_coupom?
+    auto_coupom.size > 0
+  end
+
+  def check_event_item_concomitance
+    has_error = false
+    items = self.event_items
+    items.each do |item|
+      unless item.permit_concomitance
+        items.each do |it|
+          if it.id != item.id
+            if it.start_at.between?(item.start_at, item.end_at)
+                has_error = true
+            end
+            if it.end_at.between?(item.start_at, item.end_at)
+              has_error = true
+            end
+            if item.end_at.between?(it.start_at, it.end_at)
+              has_error = true
+            end
+            if item.end_at.between?(it.start_at, it.end_at)
+              has_error = true
+            end
+          end
+        end
+      end
+    end
+    if has_error
+      errors.add("", "Conflito de horário com atividade que não permite concomitância.")
     end
   end
 

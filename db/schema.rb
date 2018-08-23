@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20180819004957) do
-
+ActiveRecord::Schema.define(version: 20180823125138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +30,7 @@ ActiveRecord::Schema.define(version: 20180819004957) do
     t.bigint "event_id"
     t.bigint "coupom_type_id"
     t.boolean "used", default: false
+    t.boolean "is_automatic", default: false
     t.index ["coupom_type_id"], name: "index_coupoms_on_coupom_type_id"
     t.index ["event_id"], name: "index_coupoms_on_event_id"
   end
@@ -50,8 +49,14 @@ ActiveRecord::Schema.define(version: 20180819004957) do
     t.bigint "event_item_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "location_id"
+    t.boolean "permit_concomitance", default: true
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.boolean "is_required", default: false
     t.index ["event_id"], name: "index_event_items_on_event_id"
     t.index ["event_item_type_id"], name: "index_event_items_on_event_item_type_id"
+    t.index ["location_id"], name: "index_event_items_on_location_id"
   end
 
   create_table "event_types", force: :cascade do |t|
@@ -65,13 +70,16 @@ ActiveRecord::Schema.define(version: 20180819004957) do
     t.text "description"
     t.bigint "event_type_id"
     t.bigint "user_id"
-    t.json "tags"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "event_id"
     t.boolean "is_principal", default: true
+    t.bigint "location_id"
+    t.boolean "is_direct_inscription", default: false
+    t.decimal "value"
     t.index ["event_id"], name: "index_events_on_event_id"
     t.index ["event_type_id"], name: "index_events_on_event_type_id"
+    t.index ["location_id"], name: "index_events_on_location_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
@@ -105,6 +113,23 @@ ActiveRecord::Schema.define(version: 20180819004957) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "items", force: :cascade do |t|
+    t.string "attr_name"
+    t.string "attr_value"
+    t.bigint "responsible_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["responsible_id"], name: "index_items_on_responsible_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.bigint "location_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_locations_on_location_id"
+  end
+
   create_table "moderators", force: :cascade do |t|
     t.bigint "event_id"
     t.bigint "user_id"
@@ -122,6 +147,23 @@ ActiveRecord::Schema.define(version: 20180819004957) do
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_partnerships_on_event_id"
     t.index ["institution_id"], name: "index_partnerships_on_institution_id"
+  end
+
+  create_table "responsibility_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "responsibles", force: :cascade do |t|
+    t.string "name"
+    t.bigint "event_item_id"
+    t.text "description"
+    t.bigint "responsibility_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_item_id"], name: "index_responsibles_on_event_item_id"
+    t.index ["responsibility_type_id"], name: "index_responsibles_on_responsibility_type_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -208,17 +250,23 @@ ActiveRecord::Schema.define(version: 20180819004957) do
   add_foreign_key "coupoms", "events"
   add_foreign_key "event_items", "event_item_types"
   add_foreign_key "event_items", "events"
+  add_foreign_key "event_items", "locations"
   add_foreign_key "events", "event_types"
   add_foreign_key "events", "events"
+  add_foreign_key "events", "locations"
   add_foreign_key "events", "users"
   add_foreign_key "inscription_items", "event_items"
   add_foreign_key "inscription_items", "inscriptions"
   add_foreign_key "inscriptions", "coupoms"
   add_foreign_key "inscriptions", "events"
   add_foreign_key "inscriptions", "users"
+  add_foreign_key "items", "responsibles"
+  add_foreign_key "locations", "locations"
   add_foreign_key "moderators", "events"
   add_foreign_key "moderators", "users"
   add_foreign_key "partnerships", "events"
   add_foreign_key "partnerships", "institutions"
+  add_foreign_key "responsibles", "event_items"
+  add_foreign_key "responsibles", "responsibility_types"
   add_foreign_key "stages", "events"
 end

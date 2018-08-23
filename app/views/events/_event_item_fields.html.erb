@@ -21,7 +21,39 @@
         <%= f.association :event_item_type %>
       </div>
       <div class="col-md-5">
+        <%= f.association :location, label_method: :complete_location, input_html: {class: 'select2'} %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <%= f.input :start_at, html5: true, input_html: { class: 'form_datetime'} %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :end_at, as: :datetime, html5: true, input_html: { class: 'form_datetime'} %>
+      </div>
+      <div class="col-md-2">
+        <%= f.input :is_required %>
+        <%= f.input :permit_concomitance %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10">
         <%= f.input :description %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-11">
+        <ul id="responsible_boxes" class="todo-list">
+          <%= f.simple_fields_for :responsibles do |b| %>
+            <%= render 'responsible_fields', f: b %>
+          <% end %>
+        </ul>
+        <div class="box-footer clearfix no-border add_responsible">
+          <%= link_to_add_association f, :responsibles, class: "btn btn-primary pull-right",
+                                      data: {'association-insertion-node': '#responsible_boxes', 'association-insertion-method': 'append'} do %>
+            <i class='fa fa-plus'></i> Adicionar Responsável
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

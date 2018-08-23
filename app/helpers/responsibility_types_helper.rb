@@ -1,0 +1,2 @@
+module ResponsibilityTypesHelper
+end

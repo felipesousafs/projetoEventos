@@ -6,7 +6,10 @@ class WellcomeController < ApplicationController
   def index
   end
 
-  def dashboard
+  def dashboard_user
+    @user = User.find(current_user.id)
+    @events = @user.events
+    @inscriptions = @user.inscriptions
   end
 
   def search_result

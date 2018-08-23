@@ -3,17 +3,23 @@
     <thead>
     <tr>
       <th>Nome</th>
+      <th>Local</th>
       <th>Valor</th>
       <th>Tipo de atividade</th>
+      <th>Início</th>
+      <th>Término</th>
       <th>Descrição</th>
     </tr>
     </thead>
     <tbody>
     <% @event.event_items.each do |item| %>
       <tr class="text-vertical ">
-        <td><%= item.name %></td>
+        <td><%= link_to item.name, event_event_item_path(@event, item) %></td>
+        <td><%= item.location.complete_location %></td>
         <td><%= item.value %></td>
         <td><%= item.event_item_type.name %></td>
+        <td><%= item.start_at %></td>
+        <td><%= item.end_at %></td>
         <td><p><%= item.description %></p></td>
       </tr>
     <% end %>

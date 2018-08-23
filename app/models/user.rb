@@ -2,6 +2,7 @@ class User < ApplicationRecord
   rolify
   acts_as_taggable # Alias for acts_as_taggable_on :tags
   has_many :inscriptions
+  has_many :events
   has_many :moderators
 
   scope :can_be_moderator_of_the_event, ->(event_id) do

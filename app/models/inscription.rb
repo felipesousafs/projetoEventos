@@ -8,6 +8,17 @@ class Inscription < ApplicationRecord
 
   accepts_nested_attributes_for :inscription_items, allow_destroy: true
   validates_associated :inscription_items
+  validate :check_current_user_ir_not_the_owner
+
+  def check_current_user_ir_not_the_owner
+    if self.user_id == self.event.user_id
+      errors.add("", "Não é possível realizar inscrição no seu próprio evento.")
+    end
+  end
+
+  validates :user_id, :uniqueness => {:scope => :event_id,
+                                      :message => "Voce já está inscrito nesse evento"}
+
 
   def add_event_item(ids)
     ids.each do |id|
@@ -15,7 +26,11 @@ class Inscription < ApplicationRecord
       item = self.inscription_items.new
       item.event_item = event_item
       item.name = event_item.name
-      item.value = event_item.value
+      if event_item.event.has_auto_coupom?
+        item.value = event_item.value - (event_item.value * event_item.event.auto_coupom.first.value.to_i / 100.0)
+      else
+        item.value = event_item.value
+      end
       #item.save
     end
   end
@@ -27,7 +42,7 @@ class Inscription < ApplicationRecord
   def valor_total
     if coupom
       if coupom.value > 0
-        valor = valor_sem_desconto - (valor_sem_desconto*coupom.value/100.0)
+        valor = valor_sem_desconto - (valor_sem_desconto * coupom.value / 100.0)
       else
         valor_sem_desconto
       end
@@ -42,6 +57,10 @@ class Inscription < ApplicationRecord
 
   def cumpom_utilizado
     self.coupom ? coupom.key : 'Nenhum'
+  end
+
+  def total_value
+    inscription_items.sum(:value)
   end
 
 end
