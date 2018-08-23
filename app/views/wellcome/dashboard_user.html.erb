@@ -1,9 +1,8 @@
-
-<h1>Dashboard do usuario</h1>
+<%= content_for :full_box do %>opa
+<% end %>
 <div class="box box-primary">
   <div class="box-header with-border">
     <h3 class="box-title">Eventos do Usuario</h3>
-
     <div class="box-tools pull-right">
       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
       </button>
@@ -11,17 +10,26 @@
   </div>
 
    <div class="box-body" style="">
-    <table class="table table-bordered table-striped">
-      <tbody>
-      <% @events.each do |event| %>
-        <tr>
-          <td>
-            <h6><%=event.name%></h6>
-          </td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
+     <table class="table table-striped">
+       <thead>
+       <tr>
+         <th><%= Event.human_attribute_name(:name) %></th>
+         <th><%= Event.human_attribute_name(:description) %></th>
+         <th><%= Event.human_attribute_name(:event_type) %></th>
+         <th>Tags</th>
+       </tr>
+       </thead>
+       <tbody>
+       <% @events.each do |event| %>
+         <tr>
+           <td><%= link_to event.name, event %></td>
+           <td><%= event.description %></td>
+           <td><%= event.event_type.name %></td>
+           <td><%= event.tags_list %></td>
+         </tr>
+       <% end %>
+       </tbody>
+     </table>
   </div>
   <!-- /.box-body -->
 </div>
@@ -37,17 +45,26 @@
   </div>
 
    <div class="box-body" style="">
-    <table class="table table-bordered table-striped">
-      <tbody>
-      <% @inscriptions.each do |inscription| %>
-        <tr>
-          <td>
-            <h6><%=inscription.paid%></h6>
-          </td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
+     <table class="table table-striped">
+       <thead>
+       <tr>
+         <th>Evento</th>
+         <th>Valor</th>
+         <th>Status</th>
+         <th>Ação</th>
+       </tr>
+       </thead>
+       <tbody>
+       <% @inscriptions.each do |inscription| %>
+         <tr>
+           <td><%= inscription.event.name %></td>
+           <td><%= "COLOCAR VALOR AQUI" %></td>
+           <td><span class="label <%= inscription.paid ? 'label-success' : 'label-warning' %>"><%= inscription.status_do_pagamento %></span></td>
+           <td><%= link_to "Ver detalhes", inscription %></td>
+         </tr>
+       <% end %>
+       </tbody>
+     </table>
   </div>
   <!-- /.box-body -->
 </div>

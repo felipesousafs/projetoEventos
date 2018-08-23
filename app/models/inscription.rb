@@ -12,7 +12,7 @@ class Inscription < ApplicationRecord
 
   def check_current_user_ir_not_the_owner
     if self.user_id == self.event.user_id
-      errors.add(:base, "Nao eh possivel se inscrever")
+      errors.add("", "Não é possível realizar inscrição no seu próprio evento.")
     end
   end
   validates :user_id, :uniqueness => { :scope => :event_id,

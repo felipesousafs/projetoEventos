@@ -92,6 +92,14 @@ class Event < ApplicationRecord
     end
   end
 
+  def children_or_parent
+    if self.event_id
+      Event.where(id: self.event_id)
+    else
+      self.children
+    end
+  end
+
   def check_event_items_location
     self.event_items.each do |item|
       item.check_if_location_is_present

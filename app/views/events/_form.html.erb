@@ -39,11 +39,22 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
-          <%= f.input :description %>
+        <div class="col-md-4">
+          <div class="col-md-4">
+            <%= f.label :is_direct_inscription %>
+            <%= f.input :is_direct_inscription, label: false %>
+          </div>
+          <div class="col-md-8">
+            <%= f.input :value %>
+          </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
           <%= f.input 'tags_list', collection: ActsAsTaggableOn::Tag.all, value_method: :name, input_html: {class: 'select2-field', multiple: 'multiple'}, as: :select %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.input :description %>
         </div>
       </div>
     </div>
