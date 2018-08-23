@@ -15,8 +15,9 @@ class Inscription < ApplicationRecord
       errors.add("", "Não é possível realizar inscrição no seu próprio evento.")
     end
   end
-  validates :user_id, :uniqueness => { :scope => :event_id,
-                                    :message => "Voce já está inscrito nesse evento" }
+
+  validates :user_id, :uniqueness => {:scope => :event_id,
+                                      :message => "Voce já está inscrito nesse evento"}
 
 
   def add_event_item(ids)
@@ -25,7 +26,11 @@ class Inscription < ApplicationRecord
       item = self.inscription_items.new
       item.event_item = event_item
       item.name = event_item.name
-      item.value = event_item.value
+      if event_item.event.has_auto_coupom?
+        item.value = event_item.value - (event_item.value * event_item.event.auto_coupom.first.value.to_i / 100.0)
+      else
+        item.value = event_item.value
+      end
       #item.save
     end
   end
@@ -52,6 +57,10 @@ class Inscription < ApplicationRecord
 
   def cumpom_utilizado
     self.coupom ? coupom.key : 'Nenhum'
+  end
+
+  def total_value
+    inscription_items.sum(:value)
   end
 
 end

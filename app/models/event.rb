@@ -106,6 +106,12 @@ class Event < ApplicationRecord
     end
   end
 
+  def auto_coupom
+    self.coupoms.where("coupoms.expiration >= ?", Date.today).where(is_automatic: true)
+  end
+  def has_auto_coupom?
+    auto_coupom.size > 0
+  end
 
   def check_event_item_concomitance
     has_error = false
