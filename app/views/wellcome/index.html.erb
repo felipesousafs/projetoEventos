@@ -42,7 +42,7 @@
     <%= render 'events_with_most_inscriptions', events: @events.most_popular_top(5) %>
   </div>
   <div class="col-md-4" id="events_with_more_inscriptions">
-    <%= render 'most_used_tags', tags: ActsAsTaggableOn::Tag.most_used(5).pluck(:name, :taggings_count).as_json %>
+    <%= render 'most_used_tags', tags: ActsAsTaggableOn::Tag.most_used(5) %>
   </div>
   <div class="col-md-4" id="events_with_more_inscriptions">
     <%= render 'event_types', event_types: @event_types %>

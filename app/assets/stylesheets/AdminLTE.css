@@ -3051,7 +3051,7 @@
    padding-top: 30px;
  }
  .widget-user-2 .widget-user-header {
-   padding: 20px;
+   padding: 5px;
    border-top-right-radius: 3px;
    border-top-left-radius: 3px;
  }
@@ -3066,7 +3066,7 @@
  }
  .widget-user-2 .widget-user-username,
  .widget-user-2 .widget-user-desc {
-   margin-left: 75px;
+   margin-left: 10%;
  }
  .widget-user-2 .widget-user-image > img {
    width: 65px;

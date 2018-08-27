@@ -14,9 +14,11 @@ class Ability
         can :manage, Event, user: user
         can [:edit, :update], Event, id: Event.joins(:moderators).where("moderators.user_id = #{user.id}").pluck(:id)
         can [:new, :create], Location
+        can [:new, :create, :destroy], Inscription
       end
     else
       can :read, Event
+      can :read, EventItem
     end
     #
     # The first argument to `can` is the action you are giving the user

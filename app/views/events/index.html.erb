@@ -1,7 +1,6 @@
 <%= content_for :full_box do %>opa
 <% end %>
 <% if @events.size == 0 %>
-  <%= params.inspect %>
   <%= params[:search_content] %>
   <%= params[:contains_tags].to_s %>
   <div class="alert alert-danger text-center" style="padding: 12px 10px 5px;">

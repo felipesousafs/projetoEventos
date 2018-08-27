@@ -8,7 +8,27 @@
     </div>
   </div>
   <div class="box-body">
-    <canvas id="pieChart" style="height: 400px; width: 800px;" width="800" height="400" data-tags="<%= tags %>"></canvas>
+<!--    <canvas id="pieChart" style="height: 400px; width: 800px;" width="800" height="400" data-tags="<%#= tags %>"></canvas>-->
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>Tag</th>
+        <th># de usos</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% tags.each do |tag| %>
+        <tr>
+          <td>
+            <%= tag.name %>
+          </td>
+          <td>
+            <%= tag.taggings_count %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
   </div>
   <!-- /.box-body -->
 </div>
