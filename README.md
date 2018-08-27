@@ -1,6 +1,5 @@
 
-# Projeto CataEvento 
-![Cataevento](https://raw.githubusercontent.com/felipesousafs/projetoEventos/production/app/assets/images/cataevento.png)
+# Projeto CataEvento <img src="/app/assets/images/cataevento.png" alt="Cataevento" width="35px" height="35px">
 > ##### Projeto final da disciplina Programação Corporativa - ADS - IFPI
 
 ## Membros da equipe
