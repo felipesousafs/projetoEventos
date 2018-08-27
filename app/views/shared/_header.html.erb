@@ -2,9 +2,9 @@
   <!-- Logo -->
   <%= link_to root_url, class: "logo" do %>
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><i class="fa fa-file-text-o"></i></span>
+    <span class="logo-mini"><%= image_tag "cataevento.png", size: "24x24" %></span>
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><i class="fa fa-file-text-o"></i> <b>Event Manager</b></span>
+    <span class="logo-lg"><%= image_tag "cataevento.png", size: "20x20" %> <b>CataEvento</b></span>
   <% end %>
   <!-- Header Navbar: style can be found in header.less -->
   <nav class="navbar navbar-static-top">
@@ -16,6 +16,12 @@
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
         <% if user_signed_in? %>
+          <li>
+            <%= link_to new_event_path, class: "toplink" do %>
+              <i class="fa fa-plus"></i>
+              Criar evento
+            <% end %>
+          </li>
           <li class="dropdown user user-menu">
             <%= link_to "#", class: "dropdown-toggle", data: {toggle: 'dropdown'}, 'aria-expanded': 'true' do %>
               <i class="fa fa-user"></i>

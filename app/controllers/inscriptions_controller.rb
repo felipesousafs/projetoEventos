@@ -1,5 +1,6 @@
 class InscriptionsController < ApplicationController
   before_action :set_inscription, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /inscriptions
   # GET /inscriptions.json
@@ -10,6 +11,7 @@ class InscriptionsController < ApplicationController
   # GET /inscriptions/1
   # GET /inscriptions/1.json
   def show
+    @inscription = @inscription.decorate
   end
 
   # GET /inscriptions/new
@@ -18,6 +20,7 @@ class InscriptionsController < ApplicationController
     @inscription = Inscription.new
     @inscription.event = @event
     @inscription.user = User.find(current_user.id)
+    @inscription = @inscription.decorate
   end
 
   # GET /inscriptions/1/edit

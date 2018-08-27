@@ -10,6 +10,7 @@ class WellcomeController < ApplicationController
     @user = User.find(current_user.id)
     @events = @user.events
     @inscriptions = @user.inscriptions
+    @inscriptions = @inscriptions.decorate
   end
 
   def search_result
