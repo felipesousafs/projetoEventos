@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     get 'inscriptions/new', to: 'inscriptions#new', as: 'new_inscription'
     get 'tag_list', to: 'events#tag_list', as: 'tag_list'
     patch 'add_moderator', to: 'events#add_moderator', as: 'add_moderator'
+    get 'publish', to: 'events#publish', as: 'publish'
   end
   post '/events/:parent_id/satellites/new_from_event', to: 'events#satellite_from_existing_event', as: 'new_satellite_from_event'
   get '/events/:parent_id/satellites/new', to: 'events#new_satellite', as: 'new_satellite'

@@ -31,10 +31,3 @@
 
 en:
   hello: "Hello world"
-  activerecord:
-    attributes:
-      event:
-        number_of_inscriptions:
-          zero: "Nenhuma inscrição"
-          one: "1 inscrição"
-          other: "%{count} inscrições"

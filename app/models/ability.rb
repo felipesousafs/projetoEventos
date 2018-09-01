@@ -20,6 +20,7 @@ class Ability
       can :read, Event
       can :read, EventItem
     end
+    cannot [:new, :create], Inscription, event: {published: false}
     #
     # The first argument to `can` is the action you are giving the user
     # permission to do.

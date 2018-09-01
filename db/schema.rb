@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180823125138) do
+ActiveRecord::Schema.define(version: 2018_09_01_173556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,8 @@ ActiveRecord::Schema.define(version: 20180823125138) do
     t.bigint "location_id"
     t.boolean "is_direct_inscription", default: false
     t.decimal "value"
+    t.boolean "published", default: false
+    t.datetime "published_at"
     t.index ["event_id"], name: "index_events_on_event_id"
     t.index ["event_type_id"], name: "index_events_on_event_type_id"
     t.index ["location_id"], name: "index_events_on_location_id"
