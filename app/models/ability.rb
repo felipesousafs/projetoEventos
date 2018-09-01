@@ -2,6 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    alias_action :show, :edit, :update, :publish, to: :moderate
     # Define abilities for the passed in user here. For example:
     #
     if user
@@ -12,7 +13,7 @@ class Ability
         can [:edit, :update], User, id: user.id
         can [:new, :create], :all
         can :manage, Event, user: user
-        can [:edit, :update], Event, id: Event.joins(:moderators).where("moderators.user_id = #{user.id}").pluck(:id)
+        can :moderate, Event, id: Event.joins(:moderators).where("moderators.user_id = #{user.id}").pluck(:id)
         can [:new, :create], Location
         can [:new, :create, :destroy], Inscription
       end

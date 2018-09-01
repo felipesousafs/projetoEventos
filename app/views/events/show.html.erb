@@ -110,8 +110,11 @@
 <div class='box box-info'>
   <div class="box-footer">
     <%= link_to t('.back', :default => t("helpers.links.back")), events_path, :class => 'btn btn-default' %>
-    <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_event_path(@event), :class => 'btn btn-default' %>
+    <% if can? :moderate, @event %>
+      <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_event_path(@event), :class => 'btn btn-default' %>
+      <%= link_to t('.publish', :default => t("helpers.links.publish")), event_publish_path(@event), :class => 'btn btn-success' %>
+    <% end %>
     <%= link_to t('.destroy', :default => t("helpers.links.destroy")), event_path(@event), :method => 'delete', :data => {:confirm => 'Tem certeza?'}, :class => 'btn btn-danger' %>
-    <%= link_to 'Inscrever-me', event_new_inscription_path(@event), :class => 'btn btn-success' if @event.published? %>
+    <%= link_to 'Inscrever-me', event_new_inscription_path(@event), :class => 'btn btn-primary' if @event.published? %>
   </div>
 </div>
