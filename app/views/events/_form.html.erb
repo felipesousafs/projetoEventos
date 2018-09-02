@@ -13,7 +13,7 @@
     <div class="box-header with-border">
       <h3 class="box-title">
         <% if @event.event_id.present? %>
-          Adicionar satélite ao evento <strong><%= @event.parent.name %></strong>
+          Satélite do evento <%= link_to @event.parent.name, @event.parent, class: 'label label-default flat ' %>
         <% else %>
           Dados do Evento
         <% end %>

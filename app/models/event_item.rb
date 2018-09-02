@@ -22,8 +22,10 @@ class EventItem < ApplicationRecord
   end
 
   def date_start_cant_be_later_than_date_end
-    if self.end_at <= self.start_at
-      errors.add(:start_at, " deve ser antes do horário de término.")
+    if self.start_at.present? and self.end_at.present?
+      if self.end_at <= self.start_at
+        errors.add(:start_at, " deve ser antes do horário de término.")
+      end
     end
   end
 
