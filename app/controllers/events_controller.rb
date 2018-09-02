@@ -34,6 +34,8 @@ class EventsController < ApplicationController
     @event = Event.new
     @event.user = current_user
     @inscription_stage = @event.stages.new(name: "Inscrições", description: "Período de inscrições")
+    @credenciamento = @event.event_items.new(name: "Credenciamento", description: "Credenciamento dos participantes.", value: 0, permit_concomitance: false, is_required: true)
+    @credenciamento.event_item_type = EventItemType.find_or_initialize_by(name: "Credenciamento")
   end
 
   def new_satellite
@@ -146,6 +148,7 @@ class EventsController < ApplicationController
   def set_event
     @event = Event.find(params[:id])
   end
+
   def set_event_with_event_id
     @event = Event.find(params[:event_id])
   end
@@ -156,7 +159,7 @@ class EventsController < ApplicationController
                                   coupoms_attributes: [:id, :value, :key, :expiration, :event_id, :coupom_type_id, :used, :_destroy],
                                   event_items_attributes: [:id, :name, :description, :value, :event_item_type_id, :location_id, :_destroy,
                                                            responsibles_attributes: [:name, :id, :description, :responsibility_type_id, :_destroy,
-                                                           items_attributes: [:id, :attr_name, :attr_value, :_destroy]]],
+                                                                                     items_attributes: [:id, :attr_name, :attr_value, :_destroy]]],
                                   stages_attributes: [:id, :name, :description, :date_start, :date_end, :_destroy],
                                   partnerships_attributes: [:id, :name, :event_id, :institution_id, :_destroy],
                                   children_attributes: [:child_ids, :_destroy],

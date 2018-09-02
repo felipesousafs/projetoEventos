@@ -95,6 +95,7 @@ class Event < ApplicationRecord
   end
 
   def publish
+    validate_event_items_before_publish
     self.published = true
     self.published_at = Time.current
     self.save
@@ -105,6 +106,16 @@ class Event < ApplicationRecord
       Event.where(id: self.event_id)
     else
       self.children
+    end
+  end
+
+  def validate_event_items_before_publish
+    if event_items.size == 0
+      errors.add("", "Você não pode publicar um evento sem atividades.")
+    else
+      unless event_items.where(event_item_type_id: EventItemType.where(name: "Credenciamento")).size > 0
+        errors.add("", "Você deve adicionar pelo menos uma atividade do tipo Credenciamento.")
+      end
     end
   end
 
