@@ -13,22 +13,23 @@
         <thead>
         <tr>
           <th><%= Event.human_attribute_name(:name) %></th>
-          <th><%= Event.human_attribute_name(:description) %></th>
           <th><%= Event.human_attribute_name(:event_type) %></th>
-          <th><%= Event.human_attribute_name(:user) %></th>
+          <th><%= Event.human_attribute_name(:owner) %></th>
+          <th><%= Event.human_attribute_name(:status) %></th>
           <th>Tags</th>
+          <th><%= Event.human_attribute_name(:publishment) %></th>
           <th colspan="3">Ações</th>
         </tr>
         </thead>
         <tbody>
         <% @events.each do |event| %>
           <tr>
-            <td><%= event.name %></td>
-            <td><%= event.description %></td>
+            <td><%= link_to event.name, event %></td>
             <td><%= event.event_type.name %></td>
             <td><%= event.user.name %></td>
+            <td><%= "colocar aqui o status" %></td>
             <td><%= event.tags_list %></td>
-            <td><%= link_to 'Show', event %></td>
+            <td><%= event.publishment_information %></td>
             <td><%= link_to 'Edit', edit_event_path(event) %></td>
             <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>

@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event_with_event_id, only: [:publish]
   load_and_authorize_resource
   # GET /events
   # GET /events.json
@@ -16,6 +17,16 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+  end
+
+  def publish
+    respond_to do |format|
+      if @event.publish
+        format.html {redirect_to event_path(@event), notice: 'Evento publicado com sucesso.'}
+      else
+        format.html {redirect_to event_path(@event), alert: 'Falha ao tentar publicar o evento.'}
+      end
+    end
   end
 
   # GET /events/new
@@ -51,7 +62,7 @@ class EventsController < ApplicationController
     if params[:event][:user_id].present?
       moderator = Moderator.new(event_id: params[:event_id], user_id: params[:event][:user_id])
       respond_to do |format|
-        if moderator.save!
+        if moderator.save
           format.html {redirect_to event_path(params[:event_id]), notice: 'Moderador adicionado com sucesso.'}
         else
           format.html {redirect_to event_path(params[:event_id]), alert: 'Falha ao adicionar moderador.'}
@@ -134,6 +145,9 @@ class EventsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_event
     @event = Event.find(params[:id])
+  end
+  def set_event_with_event_id
+    @event = Event.find(params[:event_id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

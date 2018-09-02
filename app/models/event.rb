@@ -5,6 +5,10 @@ class Event < ApplicationRecord
     tagged_with(tags, any: true)
   end
 
+  scope :published, -> do
+    where(published: true)
+  end
+
   scope :search_filter, -> (name) do
     joins(:event_items, :institutions).where(
         "events.name ILIKE ? OR events.description ILIKE ?
@@ -46,7 +50,6 @@ class Event < ApplicationRecord
   has_many :stages, :dependent => :destroy
   validates :name, presence: true
   validates :stages, presence: true
-  validates :event_items, presence: true
   validates :location, presence: true
 
   has_many :stages, :dependent => :destroy
@@ -69,7 +72,6 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :coupoms, allow_destroy: true
   accepts_nested_attributes_for :moderators, allow_destroy: true
 
-  validates_associated :event_items
   validates_associated :stages
   validate :check_event_item_concomitance
 
@@ -92,11 +94,25 @@ class Event < ApplicationRecord
     end
   end
 
+  def publish
+    self.published = true
+    self.published_at = Time.current
+    self.save
+  end
+
   def children_or_parent
     if self.event_id
       Event.where(id: self.event_id)
     else
       self.children
+    end
+  end
+
+  def publishment_information
+    if self.published?
+      "Publicado em: <span class='label label-success'>#{I18n.l(self.published_at, format: :long)}</span>".html_safe
+    else
+      "<span class='label label-warning'>Não publicado</span>".html_safe
     end
   end
 

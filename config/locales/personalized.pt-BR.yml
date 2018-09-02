@@ -1,0 +1,221 @@
+# encoding: UTF-8
+pt-BR:
+  activerecord:
+    models: &MODELS
+      agency: Órgão
+      character: Personagem
+      city: Cidade
+      document: Documento
+      education_degree: Grau de Instrução
+      family_composition: Composição Familiar
+      frequency: Frequência
+      frequency_character: Frequência
+      frequency_type: Tipo de Frequência
+      kinship_type: Tipo de Parentesco
+      marital_status: Estado Civil
+      nationality: Nacionalidade
+      note: Entrada no histórico
+      occupation: Ocupação
+      photo: Foto
+      precautionary_measure: Medida Cautelar
+      psychosocial: Psicossocial
+      regime_type: Tipo de regime
+      role: Tipo de Acesso
+      sentence: Pena
+      sex: Sexo
+      skin_color: Cor de pele
+      state: Estado
+      tracker_type: Observações
+      type_act: Tipo de Ato
+      unit: Unidade
+      user: Usuário
+    attributes:
+      name_and_description: &BASIC
+        agency: Órgão
+        amputation: Amputação
+        character: Personagem
+        city: Cidade
+        created_at: Criação
+        date: Data
+        deformity: Deformidade
+        description: Descrição
+        document: Documento
+        education_degree: Grau de Instrução
+        height: Altura
+        marital_status: Estado Civil
+        name: Nome
+        nationality: Nacionalidade
+        nature: Natureza
+        occupation: Ocupação
+        occurrence: Ocorrência
+        procedure_type: Tipo de Procedimento
+        scar: Cicatriz
+        sex: Sexo
+        shortname: Sigla
+        skin_color: Cor de pele
+        state: Estado
+        tattoo: Tatuagem
+        unit: Unidade
+        updated_at: Atualização
+      document:
+        <<: *BASIC
+        <<: *MODELS
+        document_type: Tipo
+        number: Número
+        emission: Emissão
+        department: Órgão
+      character:
+        <<: *BASIC
+        <<: *MODELS
+        name: Nome
+        avatar: Foto
+        documents: Documentos
+        nicknames: Alcunhas
+        mother: Mãe
+        father: Pai
+        birth: Data de Nascimento
+        is_death: Óbito?
+        death: Data do Óbito
+        address: Endereço
+        address_number: Número
+        zip_code: CEP
+        phone1: Telefone Residencial
+        phone2: Telefone Comercial
+        phone3: Celular
+        phone4: Fax
+        precautionary_measures: Medidas Cautelares
+        tracker_types: Observações
+        email: E-mail
+        etc: Peculiaridades
+        photo: Foto
+        address_complement: Complemento
+        responsible: Responsável
+        naturality_state: Estado da naturalidade
+        naturality_city: Naturalidade
+        district: Bairro
+        themis_unic_number: Processo originário (ThemisWeb)
+        finger_id: Impressão Digital
+        finger_operation: Impressão Digital
+        finger_operation_date: Impressão Digital
+        sex_id: Sexo
+        marital_status_id: Estado Civil
+        skin_color_id: Cor da Pele
+        education_degree_id: Grau de Instrução
+        nationality_id: Nacionalidade
+        occupation_id: Ocupação
+        naturality_city_id: Cidade da Naturalidade
+        naturality_state_id: Estado da Naturalidade
+        state_id: Estado
+        city_id: Cidade
+      city:
+        <<: *BASIC
+      district:
+        <<: *BASIC
+      education_degree:
+        <<: *BASIC
+      frequency:
+        <<: *BASIC
+        begin_date: Início
+        end_date: Fim
+        frequency_type: Tipo de Frequência
+        register_day: Dia para registro
+      finger_read:
+        <<: *BASIC
+        date: Data
+        moment: Momento
+        read_kind: Tipo
+      historic:
+        <<: *BASIC
+        date: Data
+      height:
+        <<: *BASIC
+      marital_status:
+        <<: *BASIC
+      nationality:
+        <<: *BASIC
+      nature:
+        <<: *BASIC
+        code: Código
+        nature: Pai
+      nickname:
+        name: Alcunha
+      note:
+        description: Adicionar entrada no histórico
+        user: Usuário
+      occupation:
+        <<: *BASIC
+      photo:
+        <<: *BASIC
+        <<: *MODELS
+        avatar: Arquivo
+        principal: Principal
+      precautionary_measure:
+        <<: *BASIC
+      sex:
+        <<: *BASIC
+      skin_color:
+        <<: *BASIC
+      state:
+        <<: *BASIC
+      tracker_type:
+        <<: *BASIC
+      user:
+        name: Nome
+        created_at: Criação
+        role: Permissão
+        avatar: Foto
+        username: Usuário
+        unit: Unidade
+        agency: Órgão
+      unit:
+        <<: *BASIC
+      agency:
+        <<: *BASIC
+      role:
+        <<: *BASIC
+      psychosocial:
+        <<: *BASIC
+        type_act: Tipo de ato
+        kinship_type: Parentesco
+        age: Idade
+      family_composition:
+        <<: *BASIC
+        kinship_type: Parentesco
+        age: Idade
+        income: Renda
+      kinship_type:
+        <<: *BASIC
+      sentence:
+        <<: *BASIC
+        character_id: Personagem
+        frequency_type_id: Tipo de frequência
+        regime_type_id: Regime
+      frequency_type:
+        <<: *BASIC
+        type_description: Tipo
+        number_of_months: Número de meses
+        month:
+          one: "1 mês"
+          other: "%{count} meses"
+      frequency_character:
+        <<: *BASIC
+        date_begin: Data início
+        date_end: Data de término
+        frequency_type_id: Tipo de frequência
+        register_day: Dia para registro da frequência
+  views:
+    pagination:
+      first: "&laquo;"
+      last: "&raquo;"
+      previous: "&lsaquo;"
+      next: "&rsaquo;"
+      truncate: "&hellip;"
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "Nenhum %{entry_name} encontrado(a)"
+          one: "Exibindo <b>1</b> %{entry_name}"
+          other: "Exibindo <b>%{count}</b> %{entry_name}"
+      more_pages:
+        display_entries: "Exibindo %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> de <b>%{total}</b> no total"
